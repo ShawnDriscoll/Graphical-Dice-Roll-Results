@@ -11,7 +11,7 @@ Some Things You Will Need
 
 * **Windows 10**
 
-  This code was not been tested for OSX or Linux.
+  This code has not been tested on OSX or Linux.
 
 * **Python 3.9+**
 
