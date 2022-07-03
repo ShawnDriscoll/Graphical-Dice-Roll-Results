@@ -1,16 +1,17 @@
 #
-#   Graphical Dice Roll 0.1.0 Beta for Windows 10
+#   Graphical Dice Roll 0.2.0 Beta for Windows 10
 #   Written for Python 3.9.11
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.1.0 Beta for Windows 10
+Graphical Dice Roll 0.2.0 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
 """
 
+import pyttsx3
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -26,10 +27,34 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.1.0 Beta'
-__version__ = '0.1.0b'
+__app__ = 'Graphical Dice Roll 0.2.0 Beta'
+__version__ = '0.2.0b'
 __py_version__ = '3.9.11'
 __expired_tag__ = False
+
+engine = pyttsx3.init()
+
+reg_voice_path = 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\'
+
+voice = {'US Zira':     {'Name': 'TTS_MS_EN-US_ZIRA_11.0',
+                         'Rate': -50,
+                         'Volume': 0.0},
+         'US David':    {'Name': 'TTS_MS_EN-US_DAVID_11.0',
+                         'Rate': -60,
+                         'Volume': 0.0}
+        }
+
+voices = ['Muted', 'US Zira', 'US David']
+
+speaker = 'US Zira'
+
+rate = engine.getProperty('rate')
+engine.setProperty('rate', rate + voice[speaker]['Rate'])
+volume = engine.getProperty('volume')
+engine.setProperty('volume', volume + voice[speaker]['Volume'])
+engine.setProperty('voice', reg_voice_path + voice[speaker]['Name'])
+
+ms_voice_muted = True
 
 die_types = ['D4', 'D6', 'D8', 'D10', 'D12', 'D20', 'D30', 'D66', 'D100']
 
@@ -114,6 +139,11 @@ class DiceWindow(QMainWindow, Ui_MainWindow):
         self.actionQuit.triggered.connect(self.quitButton_clicked)
         
         self.rollInput.returnPressed.connect(self.manual_roll)
+
+        for i in voices:
+            self.voiceBox.addItem(i)
+        self.voiceBox.setCurrentIndex(0)
+        self.voiceBox.currentIndexChanged.connect(self.voiceBox_changed)
         
         self.dice_to_roll = ''
         self.clear_graph = False
@@ -265,6 +295,8 @@ class DiceWindow(QMainWindow, Ui_MainWindow):
         self.popAlertDialog.show()
     
     def draw_graph(self):
+        global ms_voice_muted
+
         '''
         Graph button was clicked.
         Construct the string argument needed for graphing (if valid roll type).
@@ -371,6 +403,7 @@ class DiceWindow(QMainWindow, Ui_MainWindow):
                     bar_height[i] = percent[i]
                     #print(i)
             print('bar_height:',bar_height)
+            print()
 
             self.mpl.canvas.ax.clear()
             self.mpl.canvas.ax.bar(np.arange(len(die_range)), percent, width=0.6, alpha=.3, color='b')
@@ -416,8 +449,26 @@ class DiceWindow(QMainWindow, Ui_MainWindow):
             label.set_fontproperties(ylabel_font)
             #self.mpl.canvas.ax.get_xaxis().grid(True)
             self.mpl.canvas.ax.get_yaxis().grid(True)
-            
+
             self.mpl.canvas.draw()
+
+            if not ms_voice_muted:
+                engine.say(self.diceRoll.text())
+                engine.runAndWait()
+
+    def voiceBox_changed(self):
+        global ms_voice_muted
+
+        speaker = voices[self.voiceBox.currentIndex()]
+        #print(speaker)
+        if speaker == 'Muted':
+            ms_voice_muted = True
+        else:
+            ms_voice_muted = False
+            engine.setProperty('rate', rate + voice[speaker]['Rate'])
+            engine.setProperty('volume', volume + voice[speaker]['Volume'])
+            engine.setProperty('voice', reg_voice_path + voice[speaker]['Name'])
+        #print('ms', ms_voice_muted)
             
     def quitButton_clicked(self):
         '''
