@@ -29,6 +29,10 @@ Some Things You Will Need
 
   For graphics plotting.
 
+* **pyttsx3 2.90**
+
+  For the MS Zira and MS David voices.
+
 
 Don't Have Python?
 ------------------
