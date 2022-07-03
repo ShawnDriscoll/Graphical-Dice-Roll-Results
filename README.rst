@@ -36,6 +36,40 @@ Don't Have Python?
 The .EXE version can be run in Windows 10.
 
 
+.. |ss| raw:: html
+
+    <strike>
+
+.. |se| raw:: html
+
+    </strike>
+
+Things To-Do
+------------
+
+| Add more dice roll types.
+| Instruction manual.
+| Cheat codes.
+|ss|
+
+| Make it talk.
+| Graph manually entered dice rolls as well.
+| Start on a To-Do.
+
+|se|
+
+**Known History**
+
+* v0.2.0b
+
+  It talks now.
+
+* v0.1.0b
+
+  Initial release.
+  Graphing works with manual rolls also.
+
+
 Contact
 -------
 Questions? Please contact shawndriscoll@hotmail.com
