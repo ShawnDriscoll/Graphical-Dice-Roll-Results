@@ -304,7 +304,7 @@ class DiceWindow(QMainWindow, Ui_MainWindow):
         if self.clear_graph:
             #print('clear graph')
             xper_range = ''
-            yper_range = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+            yper_range = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             percent = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             bar_height = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             die_range = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

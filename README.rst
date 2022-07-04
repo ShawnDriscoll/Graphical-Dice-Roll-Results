@@ -56,6 +56,7 @@ Things To-Do
 | Cheat codes.
 |ss|
 
+| Add Advantage and Disadvantage roll types.
 | Make it talk.
 | Graph manually entered dice rolls as well.
 | Start on a To-Do.
@@ -63,6 +64,10 @@ Things To-Do
 |se|
 
 **Known History**
+
+* v0.3.0b
+
+  Added Advantage and Disadvantage roll types.
 
 * v0.2.0b
 
