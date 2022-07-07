@@ -68,6 +68,9 @@ Things To-Do
 * v0.3.0b
 
   Added Advantage and Disadvantage roll types.
+  
+  .. image:: images/video.png
+    :target: https://www.youtube.com/watch?v=89AzLRwAToU
 
 * v0.2.0b
 
