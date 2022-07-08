@@ -56,6 +56,7 @@ Things To-Do
 | Cheat codes.
 |ss|
 
+| Secret roll types added.
 | Add Advantage and Disadvantage roll types.
 | Make it talk.
 | Graph manually entered dice rolls as well.
@@ -64,6 +65,10 @@ Things To-Do
 |se|
 
 **Known History**
+
+* v0.3.1b
+
+  Added secret rolls types based on the 4dF roll.
 
 * v0.3.0b
 

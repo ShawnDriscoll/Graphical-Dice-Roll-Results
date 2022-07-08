@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.2.0 Beta for Windows 10
+#   Graphical Dice Roll 0.3.1 Beta for Windows 10
 #   Written for Python 3.9.11
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.2.0 Beta for Windows 10
+Graphical Dice Roll 0.3.1 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -27,8 +27,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.2.0 Beta'
-__version__ = '0.2.0b'
+__app__ = 'Graphical Dice Roll 0.3.1 Beta'
+__version__ = '0.3.1b'
 __py_version__ = '3.9.11'
 __expired_tag__ = False
 
