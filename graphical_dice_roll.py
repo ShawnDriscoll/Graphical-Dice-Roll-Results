@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.3.1 Beta for Windows 10
+#   Graphical Dice Roll 0.3.2 Beta for Windows 10
 #   Written for Python 3.9.11
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.3.1 Beta for Windows 10
+Graphical Dice Roll 0.3.2 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -27,8 +27,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.3.1 Beta'
-__version__ = '0.3.1b'
+__app__ = 'Graphical Dice Roll 0.3.2 Beta'
+__version__ = '0.3.2b'
 __py_version__ = '3.9.11'
 __expired_tag__ = False
 
@@ -96,10 +96,10 @@ class alertDialog(QDialog, Ui_alertDialog):
         log.info('PyQt5 alertDialog closing...')
         self.close()
 
-class DiceWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         '''
-        Display the dice roll window.
+        Display the Main window.
         Connect all the buttons to their functions.
         Initialize their value ranges.
         '''
@@ -149,7 +149,7 @@ class DiceWindow(QMainWindow, Ui_MainWindow):
         self.clear_graph = False
         self.rolled_manually = False
 
-        log.info('PyQt5 DiceWindow initialized.')
+        log.info('PyQt5 MainWindow initialized.')
         
         if __expired_tag__ == True:
             '''
@@ -360,8 +360,8 @@ class DiceWindow(QMainWindow, Ui_MainWindow):
             die_range = []
             percent = []
             bar_height = []
-            min_die_roll = 999
-            max_die_roll = 0
+            min_die_roll = 9999
+            max_die_roll = -9999
             
             for i in range(10000):
                 rolled_value = roll(self.dice_to_roll)
@@ -557,7 +557,7 @@ if __name__ == '__main__':
         # darkPalette.setColor(QPalette.HighlightedText, Qt.white)
         # darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, QColor(127, 127, 127))
         
-        MainApp = DiceWindow()
+        MainApp = MainWindow()
         MainApp.show()
         
         #app.setPalette(darkPalette)

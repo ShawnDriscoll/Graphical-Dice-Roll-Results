@@ -66,6 +66,10 @@ Things To-Do
 
 **Known History**
 
+* v0.3.2b
+
+  Fixed die roll range when adding a -DM to a roll.
+
 * v0.3.1b
 
   Added secret rolls types based on the 4dF roll.
