@@ -13,9 +13,9 @@ Some Things You Will Need
 
   This code has not been tested on OSX or Linux.
 
-* **Python 3.9+**
+* **Python 3.9**
 
-  This code was written using Python 3.9.11.
+  This code was written using Python 3.9.
 
 * **PyQt5 5.15.4**
 
