@@ -56,6 +56,7 @@ Things To-Do
 | Cheat codes.
 |ss|
 
+| Switch to using pydice for die rolls.
 | Secret roll types added.
 | Add Advantage and Disadvantage roll types.
 | Make it talk.
@@ -65,6 +66,11 @@ Things To-Do
 |se|
 
 **Known History**
+
+* v0.4.0b
+
+  Now uses pydice for its die rolling.
+  Displays a sample of ten random rolls.
 
 * v0.3.2b
 

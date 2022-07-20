@@ -14,9 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(452, 675)
-        MainWindow.setMinimumSize(QtCore.QSize(452, 675))
-        MainWindow.setMaximumSize(QtCore.QSize(452, 675))
+        MainWindow.resize(452, 722)
+        MainWindow.setMinimumSize(QtCore.QSize(452, 722))
+        MainWindow.setMaximumSize(QtCore.QSize(452, 722))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/die_icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -132,6 +132,9 @@ class Ui_MainWindow(object):
         self.voiceBox.setGeometry(QtCore.QRect(300, 560, 71, 22))
         self.voiceBox.setMaxVisibleItems(5)
         self.voiceBox.setObjectName("voiceBox")
+        self.sampleBrowser = QtWidgets.QTextBrowser(self.centralwidget)
+        self.sampleBrowser.setGeometry(QtCore.QRect(120, 630, 191, 31))
+        self.sampleBrowser.setObjectName("sampleBrowser")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 452, 21))
@@ -180,7 +183,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Graphical Dice Roll 0.3.2 (Beta)"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Graphical Dice Roll 0.4.0 (Beta)"))
         self.diceCount.setToolTip(_translate("MainWindow", "Dice count"))
         self.diceDM.setToolTip(_translate("MainWindow", "Dice modifier"))
         self.diceType.setToolTip(_translate("MainWindow", "Dice type"))
@@ -204,6 +207,7 @@ class Ui_MainWindow(object):
         self.clear_graphButton.setToolTip(_translate("MainWindow", "Clear graph"))
         self.clear_graphButton.setText(_translate("MainWindow", "Clear Graph"))
         self.voiceLabel.setText(_translate("MainWindow", "Voice Used"))
+        self.sampleBrowser.setToolTip(_translate("MainWindow", "Roll Sample"))
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.actionRoll_Dice.setText(_translate("MainWindow", "Roll Dice"))

@@ -1,6 +1,6 @@
 #
-#   Graphical Dice Roll 0.3.2 Beta for Windows 10
-#   Written for Python 3.9.11
+#   Graphical Dice Roll 0.4.0 Beta for Windows 10
+#   Written for Python 3.9.13
 #
 ##############################################################
 
@@ -18,7 +18,7 @@ from PyQt5.QtWidgets import *
 from mainwindow import Ui_MainWindow
 from aboutdialog import Ui_aboutDialog
 from alertdialog import Ui_alertDialog
-from rpg_tools.PyDiceroll import roll
+from rpg_tools.pydice import roll
 import sys
 import time
 import os
@@ -27,9 +27,9 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.3.2 Beta'
-__version__ = '0.3.2b'
-__py_version__ = '3.9.11'
+__app__ = 'Graphical Dice Roll 0.4.0 Beta'
+__version__ = '0.4.0b'
+__py_version__ = '3.9.13'
 __expired_tag__ = False
 
 engine = pyttsx3.init()
@@ -168,6 +168,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.clearButton.setDisabled(True)
             self.rollInput.setDisabled(True)
             self.rollBrowser.setDisabled(True)
+            self.sampleBrowser.setDisabled(True)
             self.actionAbout_Graphical_Dice_Roll.setDisabled(True)
             self.actionRoll_Dice.setDisabled(True)
             self.actionClear_Graph.setDisabled(True)
@@ -236,6 +237,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.roll_result = roll(self.dice_to_roll) 
         self.diceRoll.setText(str(self.roll_result))
         self.rollBrowser.append(self.dice_to_roll + ' = ' + self.diceRoll.text())
+        sample = '[ '
+        for x in range(10):
+            sample += str(roll(self.dice_to_roll)) + ' '
+        sample += ']'
+        self.sampleBrowser.clear()
+        self.sampleBrowser.append(sample)
         self.rollInput.clear()
         self.draw_graph()
     
@@ -255,6 +262,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         # Display the roll result inside the text browser
         self.rollBrowser.append(returned_line)
+        sample = '[ '
+        for x in range(10):
+            sample += str(roll(dice_entered)) + ' '
+        sample += ']'
+        self.sampleBrowser.clear()
+        self.sampleBrowser.append(sample)
         self.roll_result = roll_returned
         self.diceRoll.setText('')
         if self.roll_result == -9999:
@@ -278,6 +291,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.diceRoll.setText('')
         self.rollInput.clear()
         self.rollBrowser.clear()
+        self.sampleBrowser.clear()
         self.clear_graph = True
         self.draw_graph()
         
@@ -629,15 +643,17 @@ if __name__ == '__main__':
                 dice = dice[6:num]
                 dice = str(dice).upper().strip()
                 num = roll(dice)
-                if dice != 'TEST' and dice != 'INFO':
+                if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
                     print("Your '%s' roll is %d." % (dice, num))
                     log.info("The direct call to graphical_dice_roll with '%s' resulted in %d." % (dice, num))
                 elif dice == 'INFO':
                     print('graphical_dice_roll, release version ' + __version__ + ' for Python ' + __py_version__)
+            else:
+                print('Typo of some sort --> ' + dice)
         else:
             dice = str(dice).upper().strip()
             num = roll(dice)
-            if dice != 'TEST' and dice != 'INFO':
+            if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
                 print("Your '%s' roll is %d." % (dice, num))
                 log.info("The direct call to graphical_dice_roll with '%s' resulted in %d." % (dice, num))
             elif dice == 'INFO':
