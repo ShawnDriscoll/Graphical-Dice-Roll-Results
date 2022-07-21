@@ -70,6 +70,7 @@ Things To-Do
 * v0.4.0b
 
   Now uses pydice for its die rolling.
+  Added error-trapping when performing **MINMAXAVG** rolls at the CMD prompt.
   Displays a sample of ten random rolls.
 
 * v0.3.2b
