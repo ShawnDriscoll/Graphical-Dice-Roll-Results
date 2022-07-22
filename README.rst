@@ -56,6 +56,7 @@ Things To-Do
 | Cheat codes.
 |ss|
 
+| Voice manual input roll results.
 | Switch to using pydice 3.8 for die rolls.
 | Secret roll types added.
 | Add Advantage and Disadvantage roll types.
@@ -66,6 +67,12 @@ Things To-Do
 |se|
 
 **Known History**
+
+* v0.4.1b
+
+  Increased error-trapping of any out-of-bound rolls during brute force percentage calculations.
+  Roll results from manual inputs are now voiced as well.
+  Number of dice and dice modifier ranges have been increased.
 
 * v0.4.0b
 

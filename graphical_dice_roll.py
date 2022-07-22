@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.4.0 Beta for Windows 10
+#   Graphical Dice Roll 0.4.1 Beta for Windows 10
 #   Written for Python 3.9.13
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.3.2 Beta for Windows 10
+Graphical Dice Roll 0.4.1 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -27,8 +27,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.4.0 Beta'
-__version__ = '0.4.0b'
+__app__ = 'Graphical Dice Roll 0.4.1 Beta'
+__version__ = '0.4.1b'
 __py_version__ = '3.9.13'
 __expired_tag__ = False
 
@@ -190,12 +190,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         And clear fields as needed.
         '''
         self.dice_type = die_types[self.diceType.currentIndex()]
-        if self.diceType.currentIndex() <= 5:
+        if self.diceType.currentIndex() <= 6:
             self.countLabel.setEnabled(1)
             self.diceCount.setEnabled(1)
             self.dmLabel.setEnabled(1)
             self.diceDM.setEnabled(1)
-        if self.diceType.currentIndex() == 6 or self.diceType.currentIndex() >= 8:
+        if self.diceType.currentIndex() == 8:
             self.diceCount.setValue(1)
             self.countLabel.setEnabled(0)
             self.diceCount.setEnabled(0)
@@ -227,14 +227,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             math_op = '+'
         else:
             math_op = ''
-        if self.diceType.currentIndex() > 5:
+        if self.diceType.currentIndex() > 6:
             self.dice_to_roll = ''
         else:
             self.dice_to_roll = str(self.diceCount.value())
         self.dice_to_roll += self.dice_type
         if self.diceType.currentIndex() != 7:
             self.dice_to_roll += math_op + str(self.diceDM.value())
-        self.roll_result = roll(self.dice_to_roll) 
+        self.roll_result = roll(self.dice_to_roll)
         self.diceRoll.setText(str(self.roll_result))
         self.rollBrowser.append(self.dice_to_roll + ' = ' + self.diceRoll.text())
         sample = '[ '
@@ -244,7 +244,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sampleBrowser.clear()
         self.sampleBrowser.append(sample)
         self.rollInput.clear()
+        if not ms_voice_muted:
+            engine.say('Calculating roll')
+            engine.runAndWait()
         self.draw_graph()
+        if not ms_voice_muted:
+            engine.say(str(self.roll_result))
+            engine.runAndWait()
     
     def manual_roll(self):
         '''
@@ -273,7 +279,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.roll_result == -9999:
             self.clear_graph = True
         self.rolled_manually = True
-        self.draw_graph()
+        if self.roll_result != -9999:
+            if not ms_voice_muted:
+                engine.say('Calculating input')
+                engine.runAndWait()
+            self.draw_graph()
+            if not ms_voice_muted:
+                engine.say(str(self.roll_result))
+                engine.runAndWait()
+        else:
+            if not ms_voice_muted:
+                engine.say('invalid input')
+                engine.runAndWait()
+            self.draw_graph()
     
     def clear_graphButton_clicked(self):
         '''
@@ -309,8 +327,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.popAlertDialog.show()
     
     def draw_graph(self):
-        global ms_voice_muted
-
         '''
         Graph button was clicked.
         Construct the string argument needed for graphing (if valid roll type).
@@ -354,19 +370,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.rolled_manually = False
 
         else:
-            if not self.rolled_manually:
-                if self.diceDM.value() >= 0:
-                    math_op = '+'
-                else:
-                    math_op = ''
-                if self.diceType.currentIndex() > 5:
-                    self.dice_to_roll = ''
-                else:
-                    self.dice_to_roll = str(self.diceCount.value())
-                self.dice_to_roll += self.dice_type
-                if self.diceType.currentIndex() != 7:
-                    self.dice_to_roll += math_op + str(self.diceDM.value())
-            else:
+            if self.rolled_manually:
                 self.dice_to_roll = self.manual_dice_entered
                 self.rolled_manually = False
             print('dice_to_roll:', self.dice_to_roll)
@@ -377,6 +381,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             min_die_roll = 9999
             max_die_roll = -9999
             
+# calculate the range of the die rolls (using a smaple of 10000 rolls)
+
             for i in range(10000):
                 rolled_value = roll(self.dice_to_roll)
                 if min_die_roll > rolled_value:
@@ -392,18 +398,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print('die_range:', die_range)
             
             n = 10000
+            num_errors = 0
             
+# calculate the percentage for each die roll (using a sample of n=10000 rolls)
+
             for i in range(n):
-                percent[roll(self.dice_to_roll) - min_die_roll] += 1
+                roll_not_in_range = True
+                while roll_not_in_range:
+                    temp = roll(self.dice_to_roll)
+                    if temp >= min_die_roll and temp <= max_die_roll:
+                        percent[temp - min_die_roll] += 1
+                        roll_not_in_range = False
+                    else:
+                        # we just rolled ouside of our calculated die roll range, so don't count that one
+                        print("Index error:", temp)
+                        num_errors += 1
+            print('num_errors:', num_errors)
             
             max_percent = 0
             
             for i in range(len(die_range)):
-                percent[i] = percent[i] * 100. / n
+                percent[i] = percent[i] * 100. / (n - num_errors)
                 if percent[i] > max_percent:
                     max_percent = int(percent[i]) + 3
             
-            #print(max_percent)
             yper_range = range(0, max_percent)
             print('yper_range:', list(yper_range))
             print('percent:', percent)
@@ -415,7 +433,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             for i in range(len(percent)):
                 if i + min_die_roll == self.roll_result:
                     bar_height[i] = percent[i]
-                    #print(i)
+
             print('bar_height:',bar_height)
             print()
 
@@ -466,15 +484,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.mpl.canvas.draw()
 
-            if not ms_voice_muted:
-                engine.say(self.diceRoll.text())
-                engine.runAndWait()
-
     def voiceBox_changed(self):
         global ms_voice_muted
 
         speaker = voices[self.voiceBox.currentIndex()]
-        #print(speaker)
         if speaker == 'Muted':
             ms_voice_muted = True
         else:
@@ -482,7 +495,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             engine.setProperty('rate', rate + voice[speaker]['Rate'])
             engine.setProperty('volume', volume + voice[speaker]['Volume'])
             engine.setProperty('voice', reg_voice_path + voice[speaker]['Name'])
-        #print('ms', ms_voice_muted)
             
     def quitButton_clicked(self):
         '''
