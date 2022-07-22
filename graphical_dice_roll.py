@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.4.1 Beta for Windows 10
+#   Graphical Dice Roll 0.4.2 Beta for Windows 10
 #   Written for Python 3.9.13
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.4.1 Beta for Windows 10
+Graphical Dice Roll 0.4.2 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -27,8 +27,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.4.1 Beta'
-__version__ = '0.4.1b'
+__app__ = 'Graphical Dice Roll 0.4.2 Beta'
+__version__ = '0.4.2b'
 __py_version__ = '3.9.13'
 __expired_tag__ = False
 
@@ -268,10 +268,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         # Display the roll result inside the text browser
         self.rollBrowser.append(returned_line)
-        sample = '[ '
-        for x in range(10):
-            sample += str(roll(dice_entered)) + ' '
-        sample += ']'
+        if roll_returned != -9999:
+            sample = '[ '
+            for x in range(10):
+                sample += str(roll(dice_entered)) + ' '
+            sample += ']'
+        else:
+            sample = ''
         self.sampleBrowser.clear()
         self.sampleBrowser.append(sample)
         self.roll_result = roll_returned

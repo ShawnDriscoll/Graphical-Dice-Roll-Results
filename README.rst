@@ -5,6 +5,8 @@
 
 .. figure:: images/graphical_dice_roll_app.png
 
+.. figure:: images/graphical_dice_roll_audit.png
+
 
 Some Things You Will Need
 -------------------------
@@ -68,6 +70,10 @@ Things To-Do
 
 **Known History**
 
+* v0.4.2b
+
+  Removed roll samples when manual rolls were invalid.
+  
 * v0.4.1b
 
   Increased error-trapping of any out-of-bound rolls during brute force percentage calculations.
