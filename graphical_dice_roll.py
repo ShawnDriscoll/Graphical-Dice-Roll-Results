@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.4.2 Beta for Windows 10
+#   Graphical Dice Roll 0.4.3 Beta for Windows 10
 #   Written for Python 3.9.13
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.4.2 Beta for Windows 10
+Graphical Dice Roll 0.4.3 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -27,8 +27,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.4.2 Beta'
-__version__ = '0.4.2b'
+__app__ = 'Graphical Dice Roll 0.4.3 Beta'
+__version__ = '0.4.3b'
 __py_version__ = '3.9.13'
 __expired_tag__ = False
 
@@ -381,8 +381,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             die_range = []
             percent = []
             bar_height = []
-            min_die_roll = 9999
-            max_die_roll = -9999
+            min_die_roll = 99999
+            max_die_roll = -99999
             
 # calculate the range of the die rolls (using a smaple of 10000 rolls)
 
@@ -657,6 +657,9 @@ if __name__ == '__main__':
             if num != -1:
                 dice = dice[6:num]
                 dice = str(dice).upper().strip()
+                if dice == '':
+                    dice = '2D6'
+                    log.debug('Default roll was made')
                 num = roll(dice)
                 if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
                     print("Your '%s' roll is %d." % (dice, num))
@@ -667,6 +670,9 @@ if __name__ == '__main__':
                 print('Typo of some sort --> ' + dice)
         else:
             dice = str(dice).upper().strip()
+            if dice == 'ROLL()':
+                dice = '2D6'
+                log.debug('Default roll was made')
             num = roll(dice)
             if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
                 print("Your '%s' roll is %d." % (dice, num))

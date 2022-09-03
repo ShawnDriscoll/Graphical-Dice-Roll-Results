@@ -70,6 +70,10 @@ Things To-Do
 
 **Known History**
 
+* v0.4.3b
+
+  Uses updated pydice module.
+
 * v0.4.2b
 
   Removed roll samples when manual rolls were invalid.
