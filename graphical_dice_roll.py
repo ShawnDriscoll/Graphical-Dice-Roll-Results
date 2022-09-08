@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.4.3 Beta for Windows 10
+#   Graphical Dice Roll 0.4.4 Beta for Windows 10
 #   Written for Python 3.9.13
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.4.3 Beta for Windows 10
+Graphical Dice Roll 0.4.4 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -27,8 +27,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.4.3 Beta'
-__version__ = '0.4.3b'
+__app__ = 'Graphical Dice Roll 0.4.4 Beta'
+__version__ = '0.4.4b'
 __py_version__ = '3.9.13'
 __expired_tag__ = False
 
@@ -258,43 +258,47 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         dice_entered = self.rollInput.text()
         self.manual_dice_entered = dice_entered
-        roll_returned = roll(dice_entered)
-        log.debug('Rolling manually.')
-        # Was the roll a valid one?
-        if roll_returned == -9999:
-            returned_line = dice_entered + ' = ' + '<span style=" color:#ff0000;">' + str(roll_returned) + '</span>'
+        dice_entered = dice_entered.upper()
+        if dice_entered == 'INFO' or dice_entered == 'TEST' or dice_entered == 'MINMAXAVG':
+            roll_returned = roll(dice_entered)
         else:
-            returned_line = dice_entered + ' = ' + str(roll_returned)
-            
-        # Display the roll result inside the text browser
-        self.rollBrowser.append(returned_line)
-        if roll_returned != -9999:
-            sample = '[ '
-            for x in range(10):
-                sample += str(roll(dice_entered)) + ' '
-            sample += ']'
-        else:
-            sample = ''
-        self.sampleBrowser.clear()
-        self.sampleBrowser.append(sample)
-        self.roll_result = roll_returned
-        self.diceRoll.setText('')
-        if self.roll_result == -9999:
-            self.clear_graph = True
-        self.rolled_manually = True
-        if self.roll_result != -9999:
-            if not ms_voice_muted:
-                engine.say('Calculating input')
-                engine.runAndWait()
-            self.draw_graph()
-            if not ms_voice_muted:
-                engine.say(str(self.roll_result))
-                engine.runAndWait()
-        else:
-            if not ms_voice_muted:
-                engine.say('invalid input')
-                engine.runAndWait()
-            self.draw_graph()
+            roll_returned = roll(dice_entered)
+            log.debug('Rolling manually.')
+            # Was the roll a valid one?
+            if roll_returned == -9999:
+                returned_line = dice_entered + ' = ' + '<span style=" color:#ff0000;">' + str(roll_returned) + '</span>'
+            else:
+                returned_line = dice_entered + ' = ' + str(roll_returned)
+                
+            # Display the roll result inside the text browser
+            self.rollBrowser.append(returned_line)
+            if roll_returned != -9999:
+                sample = '[ '
+                for x in range(10):
+                    sample += str(roll(dice_entered)) + ' '
+                sample += ']'
+            else:
+                sample = ''
+            self.sampleBrowser.clear()
+            self.sampleBrowser.append(sample)
+            self.roll_result = roll_returned
+            self.diceRoll.setText('')
+            if self.roll_result == -9999:
+                self.clear_graph = True
+            self.rolled_manually = True
+            if self.roll_result != -9999:
+                if not ms_voice_muted:
+                    engine.say('Calculating input')
+                    engine.runAndWait()
+                self.draw_graph()
+                if not ms_voice_muted:
+                    engine.say(str(self.roll_result))
+                    engine.runAndWait()
+            else:
+                if not ms_voice_muted:
+                    engine.say('invalid input')
+                    engine.runAndWait()
+                self.draw_graph()
     
     def clear_graphButton_clicked(self):
         '''

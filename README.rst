@@ -70,6 +70,10 @@ Things To-Do
 
 **Known History**
 
+* v0.4.4b
+
+  Fixed infinite loop. (Haven't seen one of those in decades.)
+
 * v0.4.3b
 
   Uses updated pydice module.

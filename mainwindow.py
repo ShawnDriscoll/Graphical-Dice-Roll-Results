@@ -183,7 +183,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Graphical Dice Roll 0.4.3 (Beta)"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Graphical Dice Roll 0.4.4 (Beta)"))
         self.diceCount.setToolTip(_translate("MainWindow", "Dice count"))
         self.diceDM.setToolTip(_translate("MainWindow", "Dice modifier"))
         self.diceType.setToolTip(_translate("MainWindow", "Dice type"))
