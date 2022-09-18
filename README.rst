@@ -70,6 +70,11 @@ Things To-Do
 
 **Known History**
 
+* v0.4.5b
+
+  Roll accuracy for result chart is adjustable.
+  pydice module updated.
+
 * v0.4.4b
 
   Fixed infinite loop. (Haven't seen one of those in decades.)

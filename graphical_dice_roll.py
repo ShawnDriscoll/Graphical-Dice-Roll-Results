@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.4.4 Beta for Windows 10
+#   Graphical Dice Roll 0.4.5 Beta for Windows 10
 #   Written for Python 3.9.13
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.4.4 Beta for Windows 10
+Graphical Dice Roll 0.4.5 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -27,8 +27,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.4.4 Beta'
-__version__ = '0.4.4b'
+__app__ = 'Graphical Dice Roll 0.4.5 Beta'
+__version__ = '0.4.5b'
 __py_version__ = '3.9.13'
 __expired_tag__ = False
 
@@ -57,6 +57,7 @@ engine.setProperty('voice', reg_voice_path + voice[speaker]['Name'])
 ms_voice_muted = True
 
 die_types = ['D4', 'D6', 'D8', 'D10', 'D12', 'D20', 'D30', 'D66', 'D100']
+roll_accuracies = ['100', '500', '1000', '5000', '10000', '50000']
 
 class aboutDialog(QDialog, Ui_aboutDialog):
     def __init__(self):
@@ -116,6 +117,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.diceType.setCurrentIndex(1)
         self.diceType.currentIndexChanged.connect(self.diceType_changed)
         
+        for i in range(len(roll_accuracies)):
+            self.rollaccuracyType.addItem(roll_accuracies[i])
+        
+        self.roll_accuracy = 5000
+        self.rollaccuracyType.setCurrentIndex(3)
+        self.rollaccuracyType.currentIndexChanged.connect(self.rollaccuracyType_changed)
+        
         self.diceDM.valueChanged.connect(self.diceDM_changed)
         
         self.rollButton.clicked.connect(self.rollButton_clicked)
@@ -162,6 +170,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             '''
             self.diceCount.setDisabled(True)
             self.diceType.setDisabled(True)
+            self.rollaccuracyType.setDisabled(True)
+            self.voiceBox.setDisabled(True)
             self.diceDM.setDisabled(True)
             self.rollButton.setDisabled(True)
             self.clear_graphButton.setDisabled(True)
@@ -210,6 +220,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.diceDM.setValue(0)
         self.diceRoll.setText('')
         self.rollInput.clear()
+    
+    def rollaccuracyType_changed(self):
+        '''
+        Choose the accuracy of the roll chart
+        '''
+        self.roll_accuracy = int(roll_accuracies[self.rollaccuracyType.currentIndex()])
             
     def diceDM_changed(self):
         '''
@@ -390,7 +406,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
 # calculate the range of the die rolls (using a smaple of 10000 rolls)
 
-            for i in range(10000):
+            for i in range(self.roll_accuracy):
                 rolled_value = roll(self.dice_to_roll)
                 if min_die_roll > rolled_value:
                     min_die_roll = rolled_value
@@ -404,7 +420,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 bar_height.append(0)
             print('die_range:', die_range)
             
-            n = 10000
+            n = self.roll_accuracy
             num_errors = 0
             
 # calculate the percentage for each die roll (using a sample of n=10000 rolls)
