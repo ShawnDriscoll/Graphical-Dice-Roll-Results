@@ -72,6 +72,7 @@ Things To-Do
 
 * v0.4.6b
 
+  Error-trapping for invalid dice modifiers now.
   The new **D1** roll generates values **0 - 1**.
   The **D2** roll now generates values **1 - 2**.
 
