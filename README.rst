@@ -15,19 +15,19 @@ Some Things You Will Need
 
   This code has not been tested on OSX or Linux.
 
-* **Python 3.9**
+* **Python 3.9.13**
 
-  This code was written using Python 3.9.
+  This code was written using Python 3.9.13.
 
 * **PyQt5 5.15.4**
 
   PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
    
-* **numpy 1.20.2**
+* **numpy 1.23.3**
 
   For building arrays.
 
-* **matplotlib 3.4.2**
+* **matplotlib 3.6.0**
 
   For graphics plotting.
 
@@ -69,6 +69,11 @@ Things To-Do
 |se|
 
 **Known History**
+
+* v0.4.6b
+
+  The new **D1** roll generates values **0 - 1**.
+  The **D2** roll now generates values **1 - 2**.
 
 * v0.4.5b
 
