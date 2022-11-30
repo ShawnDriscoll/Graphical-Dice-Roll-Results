@@ -71,6 +71,10 @@ Things To-Do
 
 **Known History**
 
+* v0.5.0b
+
+  Updated for Python 3.11. Runs faster.
+
 * v0.4.6b
 
   Error-trapping for invalid dice modifiers now.
