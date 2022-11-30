@@ -1,6 +1,6 @@
 #
 #   Graphical Dice Roll 0.4.6 Beta for Windows 10
-#   Written for Python 3.9.13
+#   Written for Python 3.11.0
 #
 ##############################################################
 
@@ -29,7 +29,7 @@ import logging
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 __app__ = 'Graphical Dice Roll 0.4.6 Beta'
 __version__ = '0.4.6b'
-__py_version__ = '3.9.13'
+__py_version__ = '3.11.0'
 __expired_tag__ = False
 
 engine = pyttsx3.init()
@@ -573,7 +573,7 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
 
-        if trange[0] > 2022 or trange[1] > 11:
+        if trange[0] > 2022 or trange[1] > 12:
             __expired_tag__ = True
             __app__ += ' [EXPIRED]'
 
@@ -644,7 +644,7 @@ if __name__ == '__main__':
         
         app.exec_()
     
-    elif trange[0] > 2022 or trange[1] > 11:
+    elif trange[0] > 2022 or trange[1] > 12:
         __app__ += ' [EXPIRED]'
         '''
         Beta for this app has expired!

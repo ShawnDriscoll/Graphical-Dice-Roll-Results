@@ -1,7 +1,7 @@
-**Graphical Dice Roll Results for Python 3.9**
-==============================================
+**Graphical Dice Roll Results for Python 3.11**
+===============================================
 
-**Graphical Dice Roll Results** is a Python 3.9 program for rolling various dice using PyQt5 and Matplotlib.
+**Graphical Dice Roll Results** is a Python 3.11 program for rolling various dice using PyQt5 and Matplotlib.
 
 .. figure:: images/graphical_dice_roll_app.png
 
@@ -15,19 +15,19 @@ Some Things You Will Need
 
   This code has not been tested on OSX or Linux.
 
-* **Python 3.9.13**
+* **Python 3.11.0**
 
   This code was written using Python 3.9.13.
 
-* **PyQt5 5.15.4**
+* **PyQt5 5.15.7**
 
   PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
    
-* **numpy 1.23.3**
+* **numpy 1.23.5**
 
   For building arrays.
 
-* **matplotlib 3.6.0**
+* **matplotlib 3.6.2**
 
   For graphics plotting.
 
@@ -58,6 +58,7 @@ Things To-Do
 | Cheat codes.
 |ss|
 
+| Switch over to Python 3.11 for faster calculations.
 | Voice manual input roll results.
 | Switch to using pydice 3.8 for die rolls.
 | Secret roll types added.
