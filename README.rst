@@ -13,7 +13,7 @@ Some Things You Will Need
 
 * **Windows 10**
 
-  This code has not been tested on OSX or Linux.
+  This code has not been tested on Windows 11.
 
 * **Python 3.11.0**
 
@@ -73,7 +73,7 @@ Things To-Do
 
 * v0.5.0b
 
-  Updated for Python 3.11. Runs faster.
+  Updated for Python 3.11. Runs much faster.
 
 * v0.4.6b
 

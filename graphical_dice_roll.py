@@ -553,7 +553,7 @@ if __name__ == '__main__':
 #                         filemode = 'w')
 
     log = logging.getLogger('graphical_dice_roll')
-    log.setLevel(logging.DEBUG)
+    log.setLevel(logging.WARNING)
 
     if not os.path.exists('Logs'):
         os.mkdir('Logs')
