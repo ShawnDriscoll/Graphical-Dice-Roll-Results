@@ -1,5 +1,5 @@
 #
-#   pydice.py 3.12.0
+#   pydice.py 3.12.1
 #
 #   Written for Python 3.11.0
 #
@@ -20,12 +20,13 @@ Usage:
 '''
 
 from random import random
+from random import choice
 import os
 import logging
 import sys
 
 __version__ = '3.12'
-__release__ = '3.12.0'
+__release__ = '3.12.1'
 __py_version__ = '3.11.0'
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 
@@ -82,9 +83,9 @@ def _dierolls(dtype, dcount):
     for i in range(dcount):
         rolled = int(random() * dtype + 1)
         if rolled == 8 or rolled == 11 or rolled == 18 or rolled >= 80 and rolled <= 89:
-            dice_log.debug('Rolled an %s' % rolled)
+            dice_log.debug('Rolled an %d' % rolled)
         else:
-            dice_log.debug('Rolled a %s' % rolled)
+            dice_log.debug('Rolled a %d' % rolled)
         dtotal += rolled
     return dtotal
 
@@ -94,7 +95,7 @@ def roll(dice='2d6'):
     '4dF', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D8', 'D09', 'D10', 'D12', 'D20',
     'D30', 'D099', 'D100', 'D0999', 'D1000', 'D44', 'D66', 'D666', 'D88',
     'DD', 'FLUX', 'GOODFLUX', 'BADFLUX', 'BOON', 'BANE', 'ADVANTAGE',
-    'DISADVANTAGE', and also Traveller5's 1D thru 10D rolls
+    'DISADVANTAGE', 'SICHERMAN', and also Traveller5's 1D thru 10D rolls
 
     Some examples are:\n
     roll('D6') or roll('1D6') -- roll one 6-sided die\n
@@ -119,7 +120,7 @@ def roll(dice='2d6'):
     An invalid roll will return a -9999 value.
     '''
 
-    log = logging.getLogger('graphical_dice_roll.pydice')
+    log = logging.getLogger('your_logger_function_here.pydice')
     
     # strip out comment if found
     ichar3 = dice.find('#')
@@ -205,7 +206,7 @@ def roll(dice='2d6'):
     # was a min/max/avg asked for?
     if dice == 'MINMAXAVG':
         rolls_for_test = ['1d1', '1d2', '1d3', '1d4', '1d5', '1d6', '1d8', '1d09', '1d10', '1d12', '1d20', '1d30', '1d099', '1d100',
-                  '1df', '2df', '3df', '4df', '5df', 'flux', 'goodflux', 'badflux', 'boon', 'bane', 'advantage', 'disadvantage',
+                  '1df', '2df', '3df', '4df', '5df', 'flux', 'goodflux', 'badflux', 'boon', 'bane', 'advantage', 'disadvantage', 'sicherman',
                   '2d4', '3d4', '4d4',
                   '2d6', '3d6', '4d6',
                   '2d8', '3d8', '4d8',
@@ -318,6 +319,20 @@ def roll(dice='2d6'):
         else:
             rolled = flux1 - flux2
             dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux1, flux2, rolled, dice_comment))
+        return rolled
+    
+    elif dice == 'SICHERMAN':
+        die_faces1 = [1, 2, 2, 3, 3, 4]
+        die_faces2 = [1, 3, 4, 5, 6, 8]
+        roll_1 = choice(die_faces1)
+        dice_log.debug('Rolled a %d' % roll_1)
+        roll_2 = choice(die_faces2)
+        if roll_2 == 8:
+            dice_log.debug('Rolled an %d' % roll_2)
+        else:
+            dice_log.debug('Rolled a %d' % roll_2)
+        rolled = roll_1 + roll_2
+        dice_log.info("'%s' = %d %s" % (dice, rolled, dice_comment))
         return rolled
 
     # check if negative number was entered

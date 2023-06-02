@@ -71,6 +71,10 @@ Things To-Do
 
 **Known History**
 
+* v0.5.1b
+
+  Added **Sicherman** dice rolls.
+
 * v0.5.0b
 
   Updated for Python 3.11. Runs much faster.
@@ -120,7 +124,7 @@ Things To-Do
 
 * v0.3.0b
 
-  Added Advantage and Disadvantage roll types.
+  Added **Advantage** and **Disadvantage** roll types.
   
   .. image:: images/video.png
     :target: https://www.youtube.com/watch?v=89AzLRwAToU
