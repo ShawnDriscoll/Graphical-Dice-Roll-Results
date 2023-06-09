@@ -1,5 +1,5 @@
 #
-#   pydice.py 3.12.1
+#   pydice.py 3.12.3
 #
 #   Written for Python 3.11.0
 #
@@ -26,13 +26,14 @@ import logging
 import sys
 
 __version__ = '3.12'
-__release__ = '3.12.1'
+__release__ = '3.12.3'
 __py_version__ = '3.11.0'
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 
 dice_log = logging.getLogger('pydice')
+dice_log.setLevel(logging.INFO)
 #dice_log.setLevel(logging.DEBUG)
-dice_log.setLevel(logging.WARNING)
+#dice_log.setLevel(logging.WARNING)
 
 if not os.path.exists('Logs'):
     os.mkdir('Logs')
@@ -95,7 +96,7 @@ def roll(dice='2d6'):
     '4dF', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D8', 'D09', 'D10', 'D12', 'D20',
     'D30', 'D099', 'D100', 'D0999', 'D1000', 'D44', 'D66', 'D666', 'D88',
     'DD', 'FLUX', 'GOODFLUX', 'BADFLUX', 'BOON', 'BANE', 'ADVANTAGE',
-    'DISADVANTAGE', 'SICHERMAN', and also Traveller5's 1D thru 10D rolls
+    'DISADVANTAGE', 'SICHERMAN', 'HEX', and also Traveller5's 1D thru 10D rolls
 
     Some examples are:\n
     roll('D6') or roll('1D6') -- roll one 6-sided die\n
@@ -120,7 +121,7 @@ def roll(dice='2d6'):
     An invalid roll will return a -9999 value.
     '''
 
-    log = logging.getLogger('your_logger_function_here.pydice')
+    log = logging.getLogger('graphical_dice_roll.pydice')
     
     # strip out comment if found
     ichar3 = dice.find('#')
@@ -205,6 +206,7 @@ def roll(dice='2d6'):
 
     # was a min/max/avg asked for?
     if dice == 'MINMAXAVG':
+        dice_log.info('MINMAXAVG was started...')
         rolls_for_test = ['1d1', '1d2', '1d3', '1d4', '1d5', '1d6', '1d8', '1d09', '1d10', '1d12', '1d20', '1d30', '1d099', '1d100',
                   '1df', '2df', '3df', '4df', '5df', 'flux', 'goodflux', 'badflux', 'boon', 'bane', 'advantage', 'disadvantage', 'sicherman',
                   '2d4', '3d4', '4d4',
@@ -249,6 +251,83 @@ def roll(dice='2d6'):
     log.debug(dice + ' ' + dice_comment)
     dice_log.debug("Asked to roll '%s':" % dice)
 
+    # check if FLUX dice are being rolled
+    if dice == 'FLUX':
+        flux1 = _dierolls(6, 1)
+        flux2 = _dierolls(6, 1)
+        rolled = flux1 - flux2
+        dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux1, flux2, rolled, dice_comment))
+        return rolled
+    
+    # check if GOODFLUX dice are being rolled
+    elif dice == 'GOODFLUX':
+        flux1 = _dierolls(6, 1)
+        flux2 = _dierolls(6, 1)
+        if flux1 < flux2:
+            rolled = flux2 - flux1
+            dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux2, flux1, rolled, dice_comment))
+        else:
+            rolled = flux1 - flux2
+            dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux1, flux2, rolled, dice_comment))
+        return rolled
+
+    # check if BADFLUX dice are being rolled
+    elif dice == 'BADFLUX':
+        flux1 = _dierolls(6, 1)
+        flux2 = _dierolls(6, 1)
+        if flux1 > flux2:
+            rolled = flux2 - flux1
+            dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux2, flux1, rolled, dice_comment))
+        else:
+            rolled = flux1 - flux2
+            dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux1, flux2, rolled, dice_comment))
+        return rolled
+    
+    # check if SICHERMAN dice are being rolled
+    elif dice == 'SICHERMAN':
+        die_faces1 = [1, 2, 2, 3, 3, 4]
+        die_faces2 = [1, 3, 4, 5, 6, 8]
+        roll_1 = choice(die_faces1)
+        dice_log.debug('Rolled a %d' % roll_1)
+        roll_2 = choice(die_faces2)
+        if roll_2 == 8:
+            dice_log.debug('Rolled an %d' % roll_2)
+        else:
+            dice_log.debug('Rolled a %d' % roll_2)
+        rolled = roll_1 + roll_2
+        dice_log.info("'%s' = %d %s" % (dice, rolled, dice_comment))
+        return rolled
+    
+    #check if HEX die was rolled
+    elif dice == 'HEX':
+        hex_digit = {0: '0',
+                     1: '1',
+                     2: '2',
+                     3: '3',
+                     4: '4',
+                     5: '5',
+                     6: '6',
+                     7: '7',
+                     8: '8',
+                     9: '9',
+                     10: 'A',
+                     11: 'B',
+                     12: 'C',
+                     13: 'D',
+                     14: 'E',
+                     15: 'F'}
+
+        rolled = hex_digit[int(random() * 16)]
+        dice_log.info("'%s' = %s %s" % (dice, rolled, dice_comment))
+        return rolled
+
+    # check if negative number of dice was entered
+    if dice[0] == '-':
+        log.error('Negative dice count found! [ERROR]')
+        print('Negative dice count found! [ERROR]')
+        dice_log.error("Negative number of dice = '" + dice + "' [ERROR]")
+        return __error__
+
     #get dice modifier
     dice_mod = 0
     
@@ -286,66 +365,14 @@ def roll(dice='2d6'):
             num_dice = int(dF_dice[0:len(dF_dice) - 2])
             rolled = 0
             for rolls in range(num_dice):
-                rolled += _dierolls(3, 1) - 2
+                fate_die = int(random() * 4) - 2
+                dice_log.debug('Rolled a %d' % fate_die)
+                rolled += fate_die
             rolled += dice_mod
             dice_log.info("'%s' = %d%s+%d = %d %s" % (dice, num_dice, 'dF', dice_mod, rolled, dice_comment))
             return rolled
-    
-    # check if FLUX dice are being rolled
-    if dice == 'FLUX':
-        flux1 = _dierolls(6, 1)
-        flux2 = _dierolls(6, 1)
-        rolled = flux1 - flux2
-        dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux1, flux2, rolled, dice_comment))
-        return rolled
 
-    elif dice == 'GOODFLUX':
-        flux1 = _dierolls(6, 1)
-        flux2 = _dierolls(6, 1)
-        if flux1 < flux2:
-            rolled = flux2 - flux1
-            dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux2, flux1, rolled, dice_comment))
         else:
-            rolled = flux1 - flux2
-            dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux1, flux2, rolled, dice_comment))
-        return rolled
-
-    elif dice == 'BADFLUX':
-        flux1 = _dierolls(6, 1)
-        flux2 = _dierolls(6, 1)
-        if flux1 > flux2:
-            rolled = flux2 - flux1
-            dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux2, flux1, rolled, dice_comment))
-        else:
-            rolled = flux1 - flux2
-            dice_log.info("'%s' = %d - %d = %d %s" % (dice, flux1, flux2, rolled, dice_comment))
-        return rolled
-    
-    elif dice == 'SICHERMAN':
-        die_faces1 = [1, 2, 2, 3, 3, 4]
-        die_faces2 = [1, 3, 4, 5, 6, 8]
-        roll_1 = choice(die_faces1)
-        dice_log.debug('Rolled a %d' % roll_1)
-        roll_2 = choice(die_faces2)
-        if roll_2 == 8:
-            dice_log.debug('Rolled an %d' % roll_2)
-        else:
-            dice_log.debug('Rolled a %d' % roll_2)
-        rolled = roll_1 + roll_2
-        dice_log.info("'%s' = %d %s" % (dice, rolled, dice_comment))
-        return rolled
-
-    # check if negative number was entered
-    elif dice[0] == '-':
-        log.error('Negative dice count found! [ERROR]')
-        print('Negative dice count found! [ERROR]')
-        dice_log.error("Negative number of dice = '" + dice + "' [ERROR]")
-        return __error__
-
-    else:
-
-        if dice.find('H') == -1 and dice.find('L') == -1:
-
             # check if T5 dice are being rolled
             t5_dice = dice
             if t5_dice in traveller5_dice:
@@ -399,7 +426,7 @@ def roll(dice='2d6'):
                     die = []
                     keep_type = keep[0:1]
                     rolls_kept = int(keep[1:2])
-                    if rolls_kept <= num_dice:
+                    if rolls_kept > 0 and rolls_kept <= num_dice:
                         if keep_type == 'H':
                             dice_log.info('%s%s%d: Keeping higher %d %s' % (dice, keep_type, rolls_kept, rolls_kept, dice_comment))
                         else:
@@ -470,36 +497,96 @@ def roll(dice='2d6'):
                 return rolled
             elif dice_type == 'D09':
                 roll_total = 0
+                if num_dice == 1:
+                    dice_log.debug('Using %s 10-sided die (numbered 0-9)...' % number_of_dice[num_dice])
+                else:
+                    if num_dice < 11:
+                        dice_log.debug('Using %s 10-sided dice (numbered 0-9)...' % number_of_dice[num_dice])
+                    else:
+                        dice_log.debug('Using %d 10-sided dice (numbered 0-9)...' % num_dice)
                 for rolls in range(num_dice):
-                    rolled = (_dierolls(10, 1) - 1)
-                    dice_log.debug('Corrected to a roll of %s (because 0-9 values)' % rolled)
+                    rolled = int(random() * 10)
+                    if rolled == 8:
+                        dice_log.debug('Rolled an %d' % rolled)
+                    else:
+                        dice_log.debug('Rolled a %d' % rolled)
                     roll_total += rolled
                 roll_total += dice_mod
                 dice_log.info("'%s' = %d%s+%d = %d %s" % (dice, num_dice, dice_type, dice_mod, roll_total, dice_comment))
                 return roll_total
             elif dice_type == 'D099' and num_dice == 1:
-                roll_1 = (_dierolls(10, 1) - 1) * 10
-                roll_2 = _dierolls(10, 1) - 1
+                dice_log.debug('Using one 10-sided die (numbered 00-90)...')
+                roll_1 = int(random() * 10) * 10
+                if roll_1 == 80:
+                    dice_log.debug('Rolled an %d' % roll_1)
+                else:
+                    dice_log.debug('Rolled a %d' % roll_1)
+                dice_log.debug('Using one 10-sided die (numbered 0-9)...')
+                roll_2 = int(random() * 10)
+                if roll_2 == 8:
+                    dice_log.debug('Rolled an %d' % roll_2)
+                else:
+                    dice_log.debug('Rolled a %d' % roll_2)
                 rolled = roll_1 + roll_2 + dice_mod
                 dice_log.info("'%s' = %d%s+%d = %d and %d + %d = %d %s" % (dice, num_dice, dice_type, dice_mod, roll_1, roll_2, dice_mod, rolled, dice_comment))
                 return rolled
             elif dice_type == 'D100' and num_dice == 1:
-                roll_1 = (_dierolls(10, 1) - 1) * 10
-                roll_2 = _dierolls(10, 1)
+                dice_log.debug('Using one 10-sided die (numbered 00-90)...')
+                roll_1 = int(random() * 10) * 10
+                if roll_1 == 8 or roll_1 == 80:
+                    dice_log.debug('Rolled an %d' % roll_1)
+                else:
+                    dice_log.debug('Rolled a %d' % roll_1)
+                dice_log.debug('Using one 10-sided die (numbered 1-10)...')
+                roll_2 = int(random() * 10 + 1)
+                if roll_2 == 8:
+                    dice_log.debug('Rolled an %d' % roll_2)
+                else:
+                    dice_log.debug('Rolled a %d' % roll_2)
                 rolled = roll_1 + roll_2 + dice_mod
                 dice_log.info("'%s' = %d%s+%d = %d and %d + %d = %d %s" % (dice, num_dice, dice_type, dice_mod, roll_1, roll_2, dice_mod, rolled, dice_comment))
                 return rolled
             elif dice_type == 'D0999' and num_dice == 1:
-                roll_1 = (_dierolls(10, 1) - 1) * 100
-                roll_2 = (_dierolls(10, 1) - 1) * 10
-                roll_3 = _dierolls(10, 1) - 1
+                dice_log.debug('Using one 10-sided die (numbered 000-900)...')
+                roll_1 = int(random() * 10) * 100
+                if roll_1 == 800:
+                    dice_log.debug('Rolled an %d' % roll_1)
+                else:
+                    dice_log.debug('Rolled a %d' % roll_1)
+                dice_log.debug('Using one 10-sided die (numbered 00-90)...')
+                roll_2 = int(random() * 10) * 10
+                if roll_2 == 80:
+                    dice_log.debug('Rolled an %d' % roll_2)
+                else:
+                    dice_log.debug('Rolled a %d' % roll_2)
+                dice_log.debug('Using one 10-sided die (numbered 0-9)...')
+                roll_3 = int(random() * 10)
+                if roll_3 == 8:
+                    dice_log.debug('Rolled an %d' % roll_3)
+                else:
+                    dice_log.debug('Rolled a %d' % roll_3)
                 rolled = roll_1 + roll_2 + roll_3 + dice_mod
                 dice_log.info("'%s' = %d%s+%d = %d and %d and %d + %d = %d %s" % (dice, num_dice, dice_type, dice_mod, roll_1, roll_2, roll_3, dice_mod, rolled, dice_comment))
                 return rolled
             elif dice_type == 'D1000' and num_dice == 1:
-                roll_1 = (_dierolls(10, 1) - 1) * 100
-                roll_2 = (_dierolls(10, 1) - 1) * 10
-                roll_3 = _dierolls(10, 1)
+                dice_log.debug('Using one 10-sided die (numbered 000-900)...')
+                roll_1 = int(random() * 10) * 100
+                if roll_1 == 800:
+                    dice_log.debug('Rolled an %d' % roll_1)
+                else:
+                    dice_log.debug('Rolled a %d' % roll_1)
+                dice_log.debug('Using one 10-sided die (numbered 00-90)...')
+                roll_2 = int(random() * 10) * 10
+                if roll_2 == 80:
+                    dice_log.debug('Rolled an %d' % roll_2)
+                else:
+                    dice_log.debug('Rolled a %d' % roll_2)
+                dice_log.debug('Using one 10-sided die (numbered 1-10)...')
+                roll_3 = int(random() * 10 + 1)
+                if roll_3 == 8:
+                    dice_log.debug('Rolled an %d' % roll_3)
+                else:
+                    dice_log.debug('Rolled a %d' % roll_3)
                 rolled = roll_1 + roll_2 + roll_3 + dice_mod
                 dice_log.info("'%s' = %d%s+%d = %d and %d and %d + %d = %d %s" % (dice, num_dice, dice_type, dice_mod, roll_1, roll_2, roll_3, dice_mod, rolled, dice_comment))
                 return rolled
@@ -509,10 +596,10 @@ def roll(dice='2d6'):
                 return rolled
                                                     
     log.error('Wrong dice type entered! [ERROR]')
-    dice_log.error("!!!!!!!!!!!!!!!!!!!!! DICE ERROR! '" + dice + "' is unknown !!!!!!!!!!!!!!!!!!!!!!!!!")
+    dice_log.error("!!!!!!!!!!!!!!!!!!!!! DICE ERROR! '" + org_dice + "' is unknown !!!!!!!!!!!!!!!!!!!!!!!!!")
     
     print()
-    print("** DICE ERROR! '%s' is unknown **" % dice)
+    print("** DICE ERROR! '%s' is unknown **" % org_dice)
     print("Valid dice rolls are:")
     print("roll('D6') or roll('1D6') -- roll one 6-sided die")
     print("roll('2D6') -- roll two 6-sided dice")
@@ -584,8 +671,8 @@ if __name__ == '__main__':
                     dice_log.debug('Default roll was made')
                 num = roll(dice)
                 if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
-                    print("Your '%s' roll is %d." % (dice, num))
-                    dice_log.info("The direct call to pydice with '%s' resulted in %d." % (dice, num))
+                    print("Your '%s' roll is %s." % (dice, num))
+                    dice_log.info("The direct call to pydice with '%s' resulted in %s." % (dice, num))
                 elif dice == 'INFO':
                     print('roll(), release version ' + __release__ + ' for Python ' + __py_version__)
             else:
@@ -597,7 +684,7 @@ if __name__ == '__main__':
                 dice_log.debug('Default roll was made')
             num = roll(dice)
             if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
-                print("Your '%s' roll is %d." % (dice, num))
-                dice_log.info("The direct call to pydice with '%s' resulted in %d." % (dice, num))
+                print("Your '%s' roll is %s." % (dice, num))
+                dice_log.info("The direct call to pydice with '%s' resulted in %s." % (dice, num))
             elif dice == 'INFO':
                 print('roll(), release version ' + __release__ + ' for Python ' + __py_version__)

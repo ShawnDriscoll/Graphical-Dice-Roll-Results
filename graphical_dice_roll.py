@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.5.0 Beta for Windows 10
+#   Graphical Dice Roll 0.5.1 Beta for Windows 10
 #   Written for Python 3.11.0
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.5.0 Beta for Windows 10
+Graphical Dice Roll 0.5.1 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -27,8 +27,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.5.0 Beta'
-__version__ = '0.5.0b'
+__app__ = 'Graphical Dice Roll 0.5.1 Beta'
+__version__ = '0.5.1b'
 __py_version__ = '3.11.0'
 __expired_tag__ = False
 
@@ -275,7 +275,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dice_entered = self.rollInput.text()
         self.manual_dice_entered = dice_entered
         dice_entered = dice_entered.upper()
-        if dice_entered == 'INFO' or dice_entered == 'TEST' or dice_entered == 'MINMAXAVG':
+        if dice_entered == 'INFO' or dice_entered == 'TEST' or dice_entered == 'MINMAXAVG' or dice_entered == 'HEX':
             roll_returned = roll(dice_entered)
         else:
             roll_returned = roll(dice_entered)
@@ -553,7 +553,9 @@ if __name__ == '__main__':
 #                         filemode = 'w')
 
     log = logging.getLogger('graphical_dice_roll')
-    log.setLevel(logging.WARNING)
+    log.setLevel(logging.INFO)
+    #log.setLevel(logging.DEBUG)
+    #log.setLevel(logging.WARNING)
 
     if not os.path.exists('Logs'):
         os.mkdir('Logs')
@@ -573,7 +575,7 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
 
-        if trange[0] > 2023 or trange[1] > 8:
+        if trange[0] > 2023 or trange[1] > 9:
             __expired_tag__ = True
             __app__ += ' [EXPIRED]'
 

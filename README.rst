@@ -73,7 +73,8 @@ Things To-Do
 
 * v0.5.1b
 
-  Added **Sicherman** dice rolls.
+  Added **Sicherman** and **HEX** dice rolls.
+  Better logging for dice starting with a **0** instead of a **1**.
 
 * v0.5.0b
 
