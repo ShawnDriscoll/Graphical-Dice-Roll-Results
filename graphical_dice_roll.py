@@ -684,7 +684,7 @@ if __name__ == '__main__':
                     log.debug('Default roll was made')
                 num = roll(dice)
                 if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
-                    print("Your '%s' roll is %d." % (dice, num))
+                    print("Your '%s' roll is %s." % (dice, num))
                     log.info("The direct call to graphical_dice_roll with '%s' resulted in %d." % (dice, num))
                 elif dice == 'INFO':
                     print('graphical_dice_roll, release version ' + __version__ + ' for Python ' + __py_version__)
@@ -697,7 +697,7 @@ if __name__ == '__main__':
                 log.debug('Default roll was made')
             num = roll(dice)
             if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
-                print("Your '%s' roll is %d." % (dice, num))
-                log.info("The direct call to graphical_dice_roll with '%s' resulted in %d." % (dice, num))
+                print("Your '%s' roll is %s." % (dice, num))
+                log.info("The direct call to graphical_dice_roll with '%s' resulted in %s." % (dice, num))
             elif dice == 'INFO':
                 print('graphical_dice_roll, release version ' + __version__ + ' for Python ' + __py_version__)

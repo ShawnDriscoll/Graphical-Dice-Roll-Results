@@ -1,5 +1,5 @@
 #
-#   pydice.py 3.12.3
+#   pydice.py 3.12.4
 #
 #   Written for Python 3.11.0
 #
@@ -26,7 +26,7 @@ import logging
 import sys
 
 __version__ = '3.12'
-__release__ = '3.12.3'
+__release__ = '3.12.4'
 __py_version__ = '3.11.0'
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 
@@ -93,7 +93,7 @@ def _dierolls(dtype, dcount):
 def roll(dice='2d6'):
     '''
     The dice types to roll are:\n
-    '4dF', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D8', 'D09', 'D10', 'D12', 'D20',
+    '4dF', 'D01', 'D2', 'D3', 'D4', 'D5', 'D6', 'D8', 'D09', 'D10', 'D12', 'D20',
     'D30', 'D099', 'D100', 'D0999', 'D1000', 'D44', 'D66', 'D666', 'D88',
     'DD', 'FLUX', 'GOODFLUX', 'BADFLUX', 'BOON', 'BANE', 'ADVANTAGE',
     'DISADVANTAGE', 'SICHERMAN', 'HEX', and also Traveller5's 1D thru 10D rolls
@@ -207,7 +207,7 @@ def roll(dice='2d6'):
     # was a min/max/avg asked for?
     if dice == 'MINMAXAVG':
         dice_log.info('MINMAXAVG was started...')
-        rolls_for_test = ['1d1', '1d2', '1d3', '1d4', '1d5', '1d6', '1d8', '1d09', '1d10', '1d12', '1d20', '1d30', '1d099', '1d100',
+        rolls_for_test = ['1d01', '1d2', '1d3', '1d4', '1d5', '1d6', '1d8', '1d09', '1d10', '1d12', '1d20', '1d30', '1d099', '1d100',
                   '1df', '2df', '3df', '4df', '5df', 'flux', 'goodflux', 'badflux', 'boon', 'bane', 'advantage', 'disadvantage', 'sicherman',
                   '2d4', '3d4', '4d4',
                   '2d6', '3d6', '4d6',
@@ -466,9 +466,15 @@ def roll(dice='2d6'):
                     rolled = _dierolls(int(dice_type[1:len(dice_type)]), num_dice) + dice_mod
                     dice_log.info("'%s' = %d%s+%d = %d %s" % (dice, num_dice, dice_type, dice_mod, rolled, dice_comment))
                     return rolled
-            elif dice_type == 'D1' and num_dice == 1 and dice_mod == 0:
+            if dice_type == 'D1':
+                print("WARNING: The '1D1' roll has been deprecated in roll() v3.12.4.")
+                print("Using '1D01' for the roll instead.")
+                dice_log.warning("WARNING: The '1D1' roll has been deprecated in roll() v3.12.4.")
+                dice_log.warning("Using '1D01' for the roll instead.")
+                dice_type ='D01'
+            if dice_type == 'D01' and num_dice == 1 and dice_mod == 0:
                 rolled = int(random() + .5)
-                dice_log.info("'%s' = %d%s = %d %s" % (dice, num_dice, dice_type, rolled, dice_comment))
+                dice_log.info("'%s' = %d%s = %d %s" % (dice_type, num_dice, dice_type, rolled, dice_comment))
                 return rolled
             elif dice_type == 'D44' and num_dice == 1 and dice_mod == 0:
                 roll_1 = _dierolls(4, 1)
