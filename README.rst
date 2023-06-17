@@ -71,6 +71,11 @@ Things To-Do
 
 **Known History**
 
+* v0.5.2b
+
+  Fixed str being added to int errors when rolling dice at ``CMD`` prompt.
+  
+
 * v0.5.1b
 
   Added **Sicherman** dice rolls.

@@ -1,5 +1,5 @@
 #
-#   pydice.py 3.12.4
+#   pydice.py 3.12.5
 #
 #   Written for Python 3.11.0
 #
@@ -26,14 +26,14 @@ import logging
 import sys
 
 __version__ = '3.12'
-__release__ = '3.12.4'
+__release__ = '3.12.5'
 __py_version__ = '3.11.0'
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 
 dice_log = logging.getLogger('pydice')
-dice_log.setLevel(logging.INFO)
+#dice_log.setLevel(logging.INFO)
 #dice_log.setLevel(logging.DEBUG)
-#dice_log.setLevel(logging.WARNING)
+dice_log.setLevel(logging.WARNING)
 
 if not os.path.exists('Logs'):
     os.mkdir('Logs')
@@ -96,7 +96,7 @@ def roll(dice='2d6'):
     '4dF', 'D01', 'D2', 'D3', 'D4', 'D5', 'D6', 'D8', 'D09', 'D10', 'D12', 'D20',
     'D30', 'D099', 'D100', 'D0999', 'D1000', 'D44', 'D66', 'D666', 'D88',
     'DD', 'FLUX', 'GOODFLUX', 'BADFLUX', 'BOON', 'BANE', 'ADVANTAGE',
-    'DISADVANTAGE', 'SICHERMAN', 'HEX', and also Traveller5's 1D thru 10D rolls
+    'DISADVANTAGE', 'SICHERMAN', 'HEX', 'EHEX', and also Traveller5's 1D thru 10D rolls
 
     Some examples are:\n
     roll('D6') or roll('1D6') -- roll one 6-sided die\n
@@ -300,24 +300,23 @@ def roll(dice='2d6'):
     
     #check if HEX die was rolled
     elif dice == 'HEX':
-        hex_digit = {0: '0',
-                     1: '1',
-                     2: '2',
-                     3: '3',
-                     4: '4',
-                     5: '5',
-                     6: '6',
-                     7: '7',
-                     8: '8',
-                     9: '9',
-                     10: 'A',
-                     11: 'B',
-                     12: 'C',
-                     13: 'D',
-                     14: 'E',
-                     15: 'F'}
+        hex_digit = ['0', '1', '2', '3', '4', '5', '6',
+                     '7', '8', '9', 'A', 'B', 'C', 'D',
+                     'E', 'F']
 
         rolled = hex_digit[int(random() * 16)]
+        dice_log.info("'%s' = %s %s" % (dice, rolled, dice_comment))
+        return rolled
+    
+    #check if EHEX die was rolled
+    elif dice == 'EHEX':
+        ehex_digit = ['0', '1', '2', '3', '4', '5', '6',
+                      '7', '8', '9', 'A', 'B', 'C', 'D',
+                      'E', 'F', 'G', 'H', 'J', 'K',
+                      'L', 'M', 'N', 'P', 'Q', 'R',
+                      'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        
+        rolled = ehex_digit[int(random() * 34)]
         dice_log.info("'%s' = %s %s" % (dice, rolled, dice_comment))
         return rolled
 

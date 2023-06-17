@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.5.1 Beta for Windows 10
+#   Graphical Dice Roll 0.5.2 Beta for Windows 10
 #   Written for Python 3.11.0
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.5.1 Beta for Windows 10
+Graphical Dice Roll 0.5.2 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -27,8 +27,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.5.1 Beta'
-__version__ = '0.5.1b'
+__app__ = 'Graphical Dice Roll 0.5.2 Beta'
+__version__ = '0.5.2b'
 __py_version__ = '3.11.0'
 __expired_tag__ = False
 
@@ -275,7 +275,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dice_entered = self.rollInput.text()
         self.manual_dice_entered = dice_entered
         dice_entered = dice_entered.upper()
-        if dice_entered == 'INFO' or dice_entered == 'TEST' or dice_entered == 'MINMAXAVG' or dice_entered == 'HEX':
+        if dice_entered == 'INFO' or dice_entered == 'TEST' or dice_entered == 'MINMAXAVG' or dice_entered == 'HEX' or dice_entered == 'EHEX':
             roll_returned = roll(dice_entered)
         else:
             roll_returned = roll(dice_entered)
@@ -685,7 +685,7 @@ if __name__ == '__main__':
                 num = roll(dice)
                 if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
                     print("Your '%s' roll is %s." % (dice, num))
-                    log.info("The direct call to graphical_dice_roll with '%s' resulted in %d." % (dice, num))
+                    log.info("The direct call to graphical_dice_roll with '%s' resulted in %s." % (dice, num))
                 elif dice == 'INFO':
                     print('graphical_dice_roll, release version ' + __version__ + ' for Python ' + __py_version__)
             else:
