@@ -21,7 +21,11 @@ Some Things You Will Need
 
 * **PyQt5 5.15.7**
 
-  PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
+  PyQt5 is the default framework used for displaying the Window GUI and buttons, etc. If you're using PyQt6, PySide2, or PySide6 instead, you don't need to install PyQt5.
+  
+* **qtpy 2.3.1**
+
+  qtpy automatically uses whatever version of PyQt or PySide you have installed.
    
 * **numpy 1.23.5**
 

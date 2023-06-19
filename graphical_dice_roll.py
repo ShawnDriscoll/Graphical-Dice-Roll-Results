@@ -12,9 +12,11 @@ This program makes various dice rolls and calculates their graphs if needed.
 """
 
 import pyttsx3
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+
+from qtpy.QtCore import *
+from qtpy.QtGui import *
+from qtpy.QtWidgets import *
+
 from mainwindow import Ui_MainWindow
 from aboutdialog import Ui_aboutDialog
 from alertdialog import Ui_alertDialog
