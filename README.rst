@@ -8,8 +8,8 @@
 .. figure:: images/graphical_dice_roll_audit.png
 
 
-Some Things You Will Need
--------------------------
+Some Things Required
+--------------------
 
 * **Windows 10**
 
@@ -21,11 +21,11 @@ Some Things You Will Need
 
 * **PyQt5 5.15.7**
 
-  PyQt5 is the default framework used for displaying the Window GUI and buttons, etc. If you're using PyQt6, PySide2, or PySide6 instead, you don't need to install PyQt5.
+  PyQt5 is the default framework used for displaying the Window GUI and buttons, etc. No need to install PyQt5 if using PyQt6, PySide2, or PySide6 already.
   
 * **qtpy 2.3.1**
 
-  qtpy automatically uses whatever version of PyQt or PySide you have installed.
+  qtpy automatically uses whatever version of PyQt or PySide is installed.
    
 * **numpy 1.23.5**
 
