@@ -77,6 +77,7 @@ Things To-Do
 
 * v0.5.2b
 
+  Now qtpy framework compatible. No need to change the version of PyQt or PySide installed.
   Fixed str being added to int errors when rolling dice at ``CMD`` prompt.
   
 
