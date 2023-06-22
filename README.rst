@@ -21,11 +21,7 @@ Some Things Required
 
 * **PyQt5 5.15.7**
 
-  PyQt5 is the default framework used for displaying the Window GUI and buttons, etc. No need to install PyQt5 if using PyQt6, PySide2, or PySide6 already.
-  
-* **qtpy 2.3.1**
-
-  qtpy automatically uses whatever version of PyQt or PySide is installed.
+  PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
    
 * **numpy 1.23.5**
 
@@ -77,9 +73,7 @@ Things To-Do
 
 * v0.5.2b
 
-  Now qtpy framework compatible. No need to change the version of PyQt or PySide installed.
   Fixed str being added to int errors when rolling dice at ``CMD`` prompt.
-  
 
 * v0.5.1b
 
