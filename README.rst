@@ -17,7 +17,7 @@ Some Things Required
 
 * **Python 3.11.0**
 
-  This code was written using Python 3.9.13.
+  This code was written using Python 3.11.0.
 
 * **PyQt5 5.15.7**
 
@@ -70,6 +70,10 @@ Things To-Do
 |se|
 
 **Known History**
+
+* v0.5.3b
+
+  Will now use the Microsoft Desktop SAPI voices you have installed. Not just Zira and David.
 
 * v0.5.2b
 

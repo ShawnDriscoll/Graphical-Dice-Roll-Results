@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.5.2 Beta for Windows 10
+#   Graphical Dice Roll 0.5.3 Beta for Windows 10
 #   Written for Python 3.11.0
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.5.2 Beta for Windows 10
+Graphical Dice Roll 0.5.3 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -29,34 +29,33 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.5.2 Beta'
-__version__ = '0.5.2b'
+__app__ = 'Graphical Dice Roll 0.5.3 Beta'
+__version__ = '0.5.3b'
 __py_version__ = '3.11.0'
 __expired_tag__ = False
 
 engine = pyttsx3.init()
+voice_list = engine.getProperty('voices')
+voices = ['Mute Voice']
+voice = {}
+rate = -50
+volume = 1.0
 
-reg_voice_path = 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\'
+for i in voice_list:
+    rec = {}
+    name_found = i.name[i.name.find(' ')+1:]
+    name_found = name_found[:name_found.find(' ')]
+    voices.append(name_found)
+    rec['Name'] = i.id
+    rec['Rate'] = rate
+    rec['Volume'] = volume
+    voice[name_found] = rec
 
-voice = {'US Zira':     {'Name': 'TTS_MS_EN-US_ZIRA_11.0',
-                         'Rate': -50,
-                         'Volume': 0.0},
-         'US David':    {'Name': 'TTS_MS_EN-US_DAVID_11.0',
-                         'Rate': -60,
-                         'Volume': 0.0}
-        }
-
-voices = ['Muted', 'US Zira', 'US David']
-
-speaker = 'US Zira'
+#print(voices)
+#print(voice)
 
 rate = engine.getProperty('rate')
-engine.setProperty('rate', rate + voice[speaker]['Rate'])
 volume = engine.getProperty('volume')
-engine.setProperty('volume', volume + voice[speaker]['Volume'])
-engine.setProperty('voice', reg_voice_path + voice[speaker]['Name'])
-
-ms_voice_muted = True
 
 die_types = ['D4', 'D6', 'D8', 'D10', 'D12', 'D20', 'D30', 'D66', 'D100']
 roll_accuracies = ['100', '500', '1000', '5000', '10000', '50000']
@@ -158,6 +157,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dice_to_roll = ''
         self.clear_graph = False
         self.rolled_manually = False
+        self.ms_voice_muted = True
 
         log.info('PyQt5 MainWindow initialized.')
         
@@ -262,11 +262,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sampleBrowser.clear()
         self.sampleBrowser.append(sample)
         self.rollInput.clear()
-        if not ms_voice_muted:
+        if not self.ms_voice_muted:
             engine.say('Calculating roll')
             engine.runAndWait()
         self.draw_graph()
-        if not ms_voice_muted:
+        if not self.ms_voice_muted:
             engine.say(str(self.roll_result))
             engine.runAndWait()
     
@@ -305,15 +305,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.clear_graph = True
             self.rolled_manually = True
             if self.roll_result != -9999:
-                if not ms_voice_muted:
+                if not self.ms_voice_muted:
                     engine.say('Calculating input')
                     engine.runAndWait()
                 self.draw_graph()
-                if not ms_voice_muted:
+                if not self.ms_voice_muted:
                     engine.say(str(self.roll_result))
                     engine.runAndWait()
             else:
-                if not ms_voice_muted:
+                if not self.ms_voice_muted:
                     engine.say('invalid input')
                     engine.runAndWait()
                 self.draw_graph()
@@ -510,16 +510,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.mpl.canvas.draw()
 
     def voiceBox_changed(self):
-        global ms_voice_muted
 
         speaker = voices[self.voiceBox.currentIndex()]
-        if speaker == 'Muted':
-            ms_voice_muted = True
+        if speaker == 'Mute Voice':
+            self.ms_voice_muted = True
         else:
-            ms_voice_muted = False
+            self.ms_voice_muted = False
             engine.setProperty('rate', rate + voice[speaker]['Rate'])
             engine.setProperty('volume', volume + voice[speaker]['Volume'])
-            engine.setProperty('voice', reg_voice_path + voice[speaker]['Name'])
+            engine.setProperty('voice', voice[speaker]['Name'])
             
     def quitButton_clicked(self):
         '''
@@ -586,34 +585,34 @@ if __name__ == '__main__':
         
         #print(QStyleFactory.keys()) #use to find a setStyle you like, instead of 'Fusion'
         
-        app.setStyle('Fusion')
+        #app.setStyle('Fusion')
         
-        darkPalette = QPalette()
-        darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
-        darkPalette.setColor(QPalette.WindowText, Qt.white)
-        darkPalette.setColor(QPalette.Disabled, QPalette.WindowText, QColor(127, 127, 127))
-        darkPalette.setColor(QPalette.Base, QColor(42, 42, 42))
-        darkPalette.setColor(QPalette.AlternateBase, QColor(66, 66, 66))
-        darkPalette.setColor(QPalette.ToolTipBase, Qt.white)
-        darkPalette.setColor(QPalette.ToolTipText, Qt.white)
-        darkPalette.setColor(QPalette.Text, Qt.white)
-        darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(127, 127, 127))
-        darkPalette.setColor(QPalette.Dark, QColor(35, 35, 35))
-        darkPalette.setColor(QPalette.Shadow, QColor(20, 20, 20))
-        darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
-        darkPalette.setColor(QPalette.ButtonText, Qt.white)
-        darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(127, 127, 127))
-        darkPalette.setColor(QPalette.BrightText, Qt.red)
-        darkPalette.setColor(QPalette.Link, QColor(42, 130, 218))
-        darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218))
-        darkPalette.setColor(QPalette.Disabled, QPalette.Highlight, QColor(80, 80, 80))
-        darkPalette.setColor(QPalette.HighlightedText, Qt.white)
-        darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, QColor(127, 127, 127))
+        # darkPalette = QPalette()
+        # darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
+        # darkPalette.setColor(QPalette.WindowText, Qt.white)
+        # darkPalette.setColor(QPalette.Disabled, QPalette.WindowText, QColor(127, 127, 127))
+        # darkPalette.setColor(QPalette.Base, QColor(42, 42, 42))
+        # darkPalette.setColor(QPalette.AlternateBase, QColor(66, 66, 66))
+        # darkPalette.setColor(QPalette.ToolTipBase, Qt.white)
+        # darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+        # darkPalette.setColor(QPalette.Text, Qt.white)
+        # darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(127, 127, 127))
+        # darkPalette.setColor(QPalette.Dark, QColor(35, 35, 35))
+        # darkPalette.setColor(QPalette.Shadow, QColor(20, 20, 20))
+        # darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
+        # darkPalette.setColor(QPalette.ButtonText, Qt.white)
+        # darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(127, 127, 127))
+        # darkPalette.setColor(QPalette.BrightText, Qt.red)
+        # darkPalette.setColor(QPalette.Link, QColor(42, 130, 218))
+        # darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+        # darkPalette.setColor(QPalette.Disabled, QPalette.Highlight, QColor(80, 80, 80))
+        # darkPalette.setColor(QPalette.HighlightedText, Qt.white)
+        # darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, QColor(127, 127, 127))
         
         MainApp = MainWindow()
         MainApp.show()
         
-        app.setPalette(darkPalette)
+        #app.setPalette(darkPalette)
         
         # Create the systray icon
         icon = QIcon(":/icons/die_icon.ico")
