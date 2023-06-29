@@ -1,6 +1,6 @@
 #
 #   Graphical Dice Roll 0.5.3 Beta for Windows 10
-#   Written for Python 3.11.0
+#   Written for Python 3.11.4
 #
 ##############################################################
 
@@ -31,7 +31,7 @@ import logging
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 __app__ = 'Graphical Dice Roll 0.5.3 Beta'
 __version__ = '0.5.3b'
-__py_version__ = '3.11.0'
+__py_version__ = '3.11.4'
 __expired_tag__ = False
 
 engine = pyttsx3.init()
