@@ -15,25 +15,25 @@ Some Things Required
 
   This code has not been tested on Windows 11.
 
-* **Python 3.11.0**
+* **Python 3.11.4**
 
-  This code was written using Python 3.11.0.
+  This code was written using Python 3.11.4.
 
-* **PyQt5 5.15.7**
+* **PyQt5 5.15.9**
 
   PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
    
-* **numpy 1.23.5**
+* **numpy 1.25.0**
 
   For building arrays.
 
-* **matplotlib 3.6.2**
+* **matplotlib 3.7.1**
 
   For graphics plotting.
 
 * **pyttsx3 2.90**
 
-  For the MS Zira and MS David voices.
+  For the MS Zira and MS David voices (it will try to detect other SAPI voices installed).
 
 
 Don't Have Python?

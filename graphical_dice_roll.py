@@ -354,7 +354,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def draw_graph(self):
         '''
         Graph button was clicked.
-        Construct the string argument needed for graphing (if valid roll type).
+        Construct the string argument needed for graphing (if a valid roll type).
         '''
         if self.clear_graph:
             #print('clear graph')
@@ -510,7 +510,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.mpl.canvas.draw()
 
     def voiceBox_changed(self):
-
+        '''
+        Was a text-to-speech voice selected?
+        '''
         speaker = voices[self.voiceBox.currentIndex()]
         if speaker == 'Mute Voice':
             self.ms_voice_muted = True
@@ -522,11 +524,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
     def quitButton_clicked(self):
         '''
-        Exit this app
+        Exit this app (using task tray icon)
         '''
         self.close()
         
     def activate(self, reason):
+        '''
+        Toggle showing/hiding the app when clicking the system tray icon
+        '''
         if reason == QSystemTrayIcon.Trigger:  # systray icon clicked.
             if self.isVisible():
                 self.hide()
@@ -534,9 +539,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.show()
     
     def display_app(self, reason):
+        '''
+        Use task tray icon menu to display app
+        '''
         self.show()
     
     def hide_app(self, reason):
+        '''
+        Use task tray icon menu to hide app
+        '''
         self.hide()
         
         
