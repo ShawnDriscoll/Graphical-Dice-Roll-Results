@@ -31,7 +31,7 @@ import logging
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 __app__ = 'Graphical Dice Roll 0.5.3 Beta'
 __version__ = '0.5.3b'
-__py_version_req__ = '3.11.4'
+__py_version_req__ = (3,11,4)
 __expired_tag__ = False
 
 engine = pyttsx3.init()
@@ -676,7 +676,7 @@ if __name__ == '__main__':
         print('     C:\>graphical_dice_roll.py 2d6')
     elif sys.argv[1] in ['-v', '/v', '--version']:
         print()
-        print('     graphical_dice_roll, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
+        print('     graphical_dice_roll, release version ' + __version__ + ' for Python ' + __py_version_req__)
     else:
         print()
         dice = ''
@@ -699,7 +699,7 @@ if __name__ == '__main__':
                     print("Your '%s' roll is %s." % (dice, num))
                     log.info("The direct call to graphical_dice_roll with '%s' resulted in %s." % (dice, num))
                 elif dice == 'INFO':
-                    print('graphical_dice_roll, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
+                    print('graphical_dice_roll, release version ' + __version__ + ' for Python ' + __py_version_req__)
             else:
                 print('Typo of some sort --> ' + dice)
         else:
@@ -712,4 +712,4 @@ if __name__ == '__main__':
                 print("Your '%s' roll is %s." % (dice, num))
                 log.info("The direct call to graphical_dice_roll with '%s' resulted in %s." % (dice, num))
             elif dice == 'INFO':
-                print('graphical_dice_roll, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
+                print('graphical_dice_roll, release version ' + __version__ + ' for Python ' + __py_version_req__)
