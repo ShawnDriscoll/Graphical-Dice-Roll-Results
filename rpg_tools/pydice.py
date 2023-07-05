@@ -1,7 +1,7 @@
 #
 #   pydice.py 3.12.5
 #
-#   Written for Python 3.11.0
+#   Written for Python 3.11.4
 #
 #   To use this module: from pydice import roll
 #
@@ -27,7 +27,7 @@ import sys
 
 __version__ = '3.12'
 __release__ = '3.12.5'
-__py_version__ = '3.11.0'
+__py_version_req__ = (3,11,4)
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 
 dice_log = logging.getLogger('pydice')
@@ -47,10 +47,10 @@ dice_log.addHandler(fh)
 
 dice_log.info('Logging started.')
 dice_log.info('roll() v' + __version__ + ' started, and running...')
-if sys.version_info[0] < 3 or sys.version_info[1] < 11:
+if sys.version_info[0:3] < __py_version_req__:
     print('Warning:', sys.version_info[0:3], 'is an older version of Python installed.')
     dice_log.warning('Warning: ' + str(sys.version_info[0:3]) + ' is an older version of Python installed.')
-elif sys.version_info[0] > 3 or sys.version_info[1] > 11:
+elif sys.version_info[0:3] > __py_version_req__:
     print('Warning:', sys.version_info[0:3], 'is a newer version of Python installed.')
     dice_log.warning('Warning: ' + str(sys.version_info[0:3]) + ' is a newer version of Python installed.')
 
@@ -142,12 +142,12 @@ def roll(dice='2d6'):
 
     # was information for this program asked for?
     if dice == 'INFO':
-        ver = 'roll(), release version ' + __release__ + ' for Python ' + __py_version__
+        ver = 'roll(), release version ' + __release__ + ' for Python ' + str(__py_version_req__)
         dice_log.info('Reporting: roll() release version: %s' % __release__)
-        if sys.version_info[0] < 3 or sys.version_info[1] < 11:
+        if sys.version_info[0:3] < __py_version_req__:
             print('Warning:', sys.version_info[0:3], 'is an older version of Python installed.')
             dice_log.warning('Warning: ' + str(sys.version_info[0:3]) + ' is an older version of Python installed.')
-        elif sys.version_info[0] > 3 or sys.version_info[1] > 11:
+        elif sys.version_info[0:3] > __py_version_req__:
             print('Warning:', sys.version_info[0:3], 'is a newer version of Python installed.')
             dice_log.warning('Warning: ' + str(sys.version_info[0:3]) + ' is a newer version of Python installed.')
         return __version__, ver
@@ -657,7 +657,7 @@ if __name__ == '__main__':
         print('     Or just:')
         print('     C:\>pydice.py 2d6')
     elif sys.argv[1] in ['-v', '/v', '--version']:
-        print('     roll(), release version ' + __release__ + ' for Python ' + __py_version__)
+        print('     roll(), release version ' + __release__ + ' for Python ' + str(__py_version_req__))
     else:
         dice = ''
         if len(sys.argv) > 2:
@@ -679,7 +679,7 @@ if __name__ == '__main__':
                     print("Your '%s' roll is %s." % (dice, num))
                     dice_log.info("The direct call to pydice with '%s' resulted in %s." % (dice, num))
                 elif dice == 'INFO':
-                    print('roll(), release version ' + __release__ + ' for Python ' + __py_version__)
+                    print('roll(), release version ' + __release__ + ' for Python ' + str(__py_version_req__))
             else:
                 print('Typo of some sort --> ' + dice)
         else:
@@ -692,4 +692,4 @@ if __name__ == '__main__':
                 print("Your '%s' roll is %s." % (dice, num))
                 dice_log.info("The direct call to pydice with '%s' resulted in %s." % (dice, num))
             elif dice == 'INFO':
-                print('roll(), release version ' + __release__ + ' for Python ' + __py_version__)
+                print('roll(), release version ' + __release__ + ' for Python ' + str(__py_version_req__))
