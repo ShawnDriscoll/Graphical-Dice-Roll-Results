@@ -41,6 +41,7 @@ voice = {}
 rate = -50
 volume = 1.0
 
+# Look for installed TTS voices
 for i in voice_list:
     rec = {}
     name_found = i.name[i.name.find(' ')+1:]
@@ -50,9 +51,6 @@ for i in voice_list:
     rec['Rate'] = rate
     rec['Volume'] = volume
     voice[name_found] = rec
-
-#print(voices)
-#print(voice)
 
 rate = engine.getProperty('rate')
 volume = engine.getProperty('volume')
@@ -168,7 +166,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             log.warning(__app__ + ' expiration detected...')
             self.alert_window()
             '''
-            display alert message and disable all the things
+            Display alert message and disable all the things
             '''
             self.diceCount.setDisabled(True)
             self.diceType.setDisabled(True)
@@ -280,8 +278,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if dice_entered == 'INFO' or dice_entered == 'TEST' or dice_entered == 'MINMAXAVG' or dice_entered == 'HEX' or dice_entered == 'EHEX':
             roll_returned = roll(dice_entered)
         else:
-            roll_returned = roll(dice_entered)
             log.debug('Rolling manually.')
+            roll_returned = roll(dice_entered)
+            
             # Was the roll a valid one?
             if roll_returned == -9999:
                 returned_line = dice_entered + ' = ' + '<span style=" color:#ff0000;">' + str(roll_returned) + '</span>'
@@ -304,7 +303,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.rolled_manually = True
             if self.roll_result != -9999:
                 if not self.ms_voice_muted:
-                    engine.say('Calculating input')
+                    engine.say('Calculating ' + dice_entered)
                     engine.runAndWait()
                 self.draw_graph()
                 if not self.ms_voice_muted:
@@ -452,7 +451,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             log.debug('Generate ' + self.dice_to_roll + ' graph')
             
-            xper_range = self.dice_to_roll
+            xper_range = self.dice_to_roll + ' Roll'
 
             for i in range(len(percent)):
                 if i + min_die_roll == self.roll_result:
@@ -586,7 +585,7 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
 
-        if trange[0] > 2023 or trange[1] > 9:
+        if trange[0] > 2023 or trange[1] > 11:
             __expired_tag__ = True
             __app__ += ' [EXPIRED]'
 
@@ -643,7 +642,7 @@ if __name__ == '__main__':
         hideApp.triggered.connect(MainApp.hide_app)
         menu.addAction(hideApp)
 
-        quit = QAction("Quit")
+        quit = QAction("Exit")
         quit.triggered.connect(app.quit)
         menu.addAction(quit)
         
@@ -657,7 +656,7 @@ if __name__ == '__main__':
         
         app.exec_()
     
-    elif trange[0] > 2023 or trange[1] > 9:
+    elif trange[0] > 2023 or trange[1] > 11:
         __app__ += ' [EXPIRED]'
         '''
         Beta for this app has expired!

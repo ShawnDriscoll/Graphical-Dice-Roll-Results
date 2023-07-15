@@ -71,6 +71,10 @@ Things To-Do
 
 **Known History**
 
+* v0.5.4b
+
+  FATE dice were using the wrong random() for some reason. Fixed.
+
 * v0.5.3b
 
   Will now use the Microsoft Desktop SAPI voices you have installed. Not just Zira and David.

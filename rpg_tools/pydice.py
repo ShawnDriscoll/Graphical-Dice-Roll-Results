@@ -1,5 +1,5 @@
 #
-#   pydice.py 3.12.5
+#   pydice.py 3.12.6
 #
 #   Written for Python 3.11.4
 #
@@ -26,7 +26,7 @@ import logging
 import sys
 
 __version__ = '3.12'
-__release__ = '3.12.5'
+__release__ = '3.12.6'
 __py_version_req__ = (3,11,4)
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 
@@ -364,7 +364,7 @@ def roll(dice='2d6'):
             num_dice = int(dF_dice[0:len(dF_dice) - 2])
             rolled = 0
             for rolls in range(num_dice):
-                fate_die = int(random() * 4) - 2
+                fate_die = int(random() * 3) - 1
                 dice_log.debug('Rolled a %d' % fate_die)
                 rolled += fate_die
             rolled += dice_mod
