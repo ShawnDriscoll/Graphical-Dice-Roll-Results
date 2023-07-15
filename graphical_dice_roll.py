@@ -275,8 +275,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         A roll was inputed manually
         '''
         dice_entered = self.rollInput.text()
-        self.manual_dice_entered = dice_entered
         dice_entered = dice_entered.upper()
+        self.manual_dice_entered = dice_entered
         if dice_entered == 'INFO' or dice_entered == 'TEST' or dice_entered == 'MINMAXAVG' or dice_entered == 'HEX' or dice_entered == 'EHEX':
             roll_returned = roll(dice_entered)
         else:
@@ -301,8 +301,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.sampleBrowser.append(sample)
             self.roll_result = roll_returned
             self.diceRoll.setText('')
-            if self.roll_result == -9999:
-                self.clear_graph = True
             self.rolled_manually = True
             if self.roll_result != -9999:
                 if not self.ms_voice_muted:
@@ -316,6 +314,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if not self.ms_voice_muted:
                     engine.say('invalid input')
                     engine.runAndWait()
+                self.clear_graph = True
                 self.draw_graph()
     
     def clear_graphButton_clicked(self):
