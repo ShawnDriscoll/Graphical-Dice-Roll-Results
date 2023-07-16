@@ -25,6 +25,7 @@ Desktop.ini
 ## Python
 ############
 __pycache__/
+*.pyc
 
 
 ##################
