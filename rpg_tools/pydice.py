@@ -12,9 +12,9 @@
 '''
 pydice module containing roll()
 
-Usage:
-    from pydice import roll
-    print(roll('2D6'))
+Usage:\n
+    from pydice import roll\n
+    print(roll('2D6'))\n
 
     Will roll two 6-sided dice, returning an integer
 '''
@@ -63,9 +63,9 @@ __error__ = -9999
 
 def _dierolls(dtype, dcount):
     '''
-    Takes two integer arguments:
-        dtype (the number of sides for the dice)
-        dcount (the number of dice to roll)
+    Takes two integer arguments:\n
+        dtype (the number of sides for the dice)\n
+        dcount (the number of dice to roll)\n
     
     and returns an integer value.
     
