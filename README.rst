@@ -15,9 +15,9 @@ Some Things Required
 
   This code has not been tested on Windows 11.
 
-* **Python 3.11.4**
+* **Python 3.11**
 
-  This code was written using Python 3.11.4.
+  This code was written using Python 3.11.
 
 * **PyQt5 5.15.9**
 
@@ -70,6 +70,10 @@ Things To-Do
 |se|
 
 **Known History**
+
+* v0.5.5b
+
+  Fixed crash caused when the amount of high or low number of dice to keep was missing.
 
 * v0.5.4b
 

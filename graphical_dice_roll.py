@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.5.4 Beta for Windows 10
+#   Graphical Dice Roll 0.5.5 Beta for Windows 10
 #   Written for Python 3.11.4
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.5.4 Beta for Windows 10
+Graphical Dice Roll 0.5. Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -29,8 +29,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.5.4 Beta'
-__version__ = '0.5.4b'
+__app__ = 'Graphical Dice Roll 0.5.5 Beta'
+__version__ = '0.5.5b'
 __py_version_req__ = (3,11,4)
 __expired_tag__ = False
 
@@ -298,6 +298,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 sample = ''
             self.sampleBrowser.clear()
             self.sampleBrowser.append(sample)
+            log.info('Sample for die type: ' + sample)
             self.roll_result = roll_returned
             self.diceRoll.setText('')
             self.rolled_manually = True
@@ -666,6 +667,7 @@ if __name__ == '__main__':
         print(__app__)
         
     elif sys.argv[1] in ['-h', '/h', '--help', '-?', '/?']:
+        log.info('Graphical Dice Roll was run from the CMD prompt.  Help will be sent if needed.')
         print()
         print('     Using the CMD prompt to make dice rolls:')
         print("     C:\>graphical_dice_roll.py roll('2d6')")
@@ -674,7 +676,8 @@ if __name__ == '__main__':
         print('     C:\>graphical_dice_roll.py 2d6')
     elif sys.argv[1] in ['-v', '/v', '--version']:
         print()
-        print('     graphical_dice_roll, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
+        print('     Graphical Dice Roll, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
+        log.info('Reporting: Graphical Dice Roll release version: %s' % __version__)
     else:
         print()
         dice = ''
@@ -695,9 +698,10 @@ if __name__ == '__main__':
                 num = roll(dice)
                 if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
                     print("Your '%s' roll is %s." % (dice, num))
-                    log.info("The direct call to graphical_dice_roll with '%s' resulted in %s." % (dice, num))
+                    log.info("The direct call to Graphical Dice Roll with '%s' resulted in %s." % (dice, num))
                 elif dice == 'INFO':
-                    print('graphical_dice_roll, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
+                    print('Graphical Dice Roll, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
+                    log.info('Reporting: Graphical Dice Roll release version: %s' % __version__)
             else:
                 print('Typo of some sort --> ' + dice)
         else:
@@ -708,6 +712,8 @@ if __name__ == '__main__':
             num = roll(dice)
             if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
                 print("Your '%s' roll is %s." % (dice, num))
-                log.info("The direct call to graphical_dice_roll with '%s' resulted in %s." % (dice, num))
+                log.info("The direct call to Graphical Dice Roll with '%s' resulted in %s." % (dice, num))
             elif dice == 'INFO':
-                print('graphical_dice_roll, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
+                print('Graphical Dice Roll, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
+                log.info('Reporting: Graphical Dice Roll release version: %s' % __version__)
+                
