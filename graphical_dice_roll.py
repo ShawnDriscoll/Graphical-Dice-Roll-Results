@@ -5,7 +5,7 @@
 ##############################################################
 
 """
-Graphical Dice Roll 0.5. Beta for Windows 10
+Graphical Dice Roll 0.5.5 Beta for Windows 10
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -651,8 +651,7 @@ if __name__ == '__main__':
         
         # Add the menu to the tray
         tray.setContextMenu(menu)
-        
-        
+
         tray.activated.connect(MainApp.activate)
         
         app.exec_()
