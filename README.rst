@@ -71,6 +71,10 @@ Things To-Do
 
 **Known History**
 
+* v0.5.6b
+
+  Updated for Windows 11. Will still run on Windows 10.
+
 * v0.5.5b
 
   Fixed crash caused when the amount of high or low number of dice to keep was missing.
