@@ -11,23 +11,23 @@
 Some Things Required
 --------------------
 
-* **Windows 10**
+* **Windows 11**
 
-  This code has not been tested on Windows 11.
+  This code will still run on Windows 10.
 
 * **Python 3.11**
 
-  This code was written using Python 3.11.
+  This code was written using Python 3.11.6.
 
 * **PyQt5 5.15.9**
 
   PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
    
-* **numpy 1.25.0**
+* **numpy 1.26.0**
 
   For building arrays.
 
-* **matplotlib 3.7.1**
+* **matplotlib 3.8.0**
 
   For graphics plotting.
 
@@ -39,7 +39,7 @@ Some Things Required
 Don't Have Python?
 ------------------
 
-The .EXE version can be run in Windows 10.
+The .EXE version can be run in Windows 11.
 
 
 .. |ss| raw:: html
