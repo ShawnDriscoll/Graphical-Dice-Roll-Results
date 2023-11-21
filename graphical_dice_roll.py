@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.5.6 Beta for Windows 11
+#   Graphical Dice Roll 0.5.7 Beta for Windows 11
 #   Written for Python 3.11.6
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.5.6 Beta for Windows 11
+Graphical Dice Roll 0.5.7 Beta for Windows 11
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -29,8 +29,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.5.6 Beta'
-__version__ = '0.5.6b'
+__app__ = 'Graphical Dice Roll 0.5.7 Beta'
+__version__ = '0.5.7b'
 __py_version_req__ = (3,11,6)
 __expired_tag__ = False
 
@@ -56,7 +56,7 @@ rate = engine.getProperty('rate')
 volume = engine.getProperty('volume')
 
 die_types = ['D4', 'D6', 'D8', 'D10', 'D12', 'D20', 'D30', 'D66', 'D100']
-roll_accuracies = ['100', '500', '1000', '5000', '10000', '50000']
+roll_accuracies = ['100', '500', '1000', '5000', '10000', '50000', '100000', '500000', '1000000']
 
 class aboutDialog(QDialog, Ui_aboutDialog):
     def __init__(self):
