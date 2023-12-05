@@ -71,9 +71,14 @@ Things To-Do
 
 **Known History**
 
+* v0.5.8b
+
+  Increased accuracy to 500,000 iterations.
+  Reports the mean average of rolls if applicable.
+
 * v0.5.7b
 
-  Increased accuracy to 1,000,000 iterations.
+  Increased accuracy to 100,000 iterations.
 
 * v0.5.6b
 

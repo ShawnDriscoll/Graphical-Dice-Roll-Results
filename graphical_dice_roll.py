@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.5.7 Beta for Windows 11
+#   Graphical Dice Roll 0.5.8 Beta for Windows 11
 #   Written for Python 3.11.6
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.5.7 Beta for Windows 11
+Graphical Dice Roll 0.5.8 Beta for Windows 11
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -29,8 +29,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.5.7 Beta'
-__version__ = '0.5.7b'
+__app__ = 'Graphical Dice Roll 0.5.8 Beta'
+__version__ = '0.5.8b'
 __py_version_req__ = (3,11,6)
 __expired_tag__ = False
 
@@ -56,7 +56,7 @@ rate = engine.getProperty('rate')
 volume = engine.getProperty('volume')
 
 die_types = ['D4', 'D6', 'D8', 'D10', 'D12', 'D20', 'D30', 'D66', 'D100']
-roll_accuracies = ['100', '500', '1000', '5000', '10000', '50000', '100000', '500000', '1000000']
+roll_accuracies = ['50', '100', '500', '1000', '5000', '10000', '50000', '100000', '500000', '1000000', '5000000']
 
 class aboutDialog(QDialog, Ui_aboutDialog):
     def __init__(self):
@@ -419,11 +419,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 die_range.append(i)
                 percent.append(0)
                 bar_height.append(0)
-            print('die_range:', die_range)
+
+            if self.dice_to_roll == 'D44' or self.dice_to_roll == 'D66' or self.dice_to_roll == 'D88' or self.dice_to_roll.find('S6') != -1:
+                print('No die_range')
+                print('No mean_avg')
+            else:
             
+# calculate the mean average for die_range
+
+                print('die_range:', die_range)
+                j = 0
+                for i in range(len(die_range)):
+                    j += die_range[i]
+                print('mean_avg:', j / len(die_range))
+
             n = self.roll_accuracy
             num_errors = 0
-            
+
 # calculate the percentage for each die roll (using a sample of n=10000 rolls)
 
             for i in range(n):
@@ -586,7 +598,7 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
 
-        if trange[0] > 2023 or trange[1] > 11:
+        if trange[0] > 2023 or trange[1] > 12:
             __expired_tag__ = True
             __app__ += ' [EXPIRED]'
 
@@ -656,7 +668,7 @@ if __name__ == '__main__':
         
         app.exec_()
     
-    elif trange[0] > 2023 or trange[1] > 11:
+    elif trange[0] > 2023 or trange[1] > 12:
         __app__ += ' [EXPIRED]'
         '''
         Beta for this app has expired!
