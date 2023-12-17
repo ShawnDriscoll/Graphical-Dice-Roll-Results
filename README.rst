@@ -39,7 +39,7 @@ Some Things Required
 Don't Have Python?
 ------------------
 
-The .EXE version can be run in Windows 11.
+The .EXE version can be run in Windows 11 or 10.
 
 
 .. |ss| raw:: html
