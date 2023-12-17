@@ -1,11 +1,11 @@
 #
-#   Graphical Dice Roll 0.5.8 Beta for Windows 11
+#   Graphical Dice Roll 0.6.0 Beta for Windows 11
 #   Written for Python 3.11.6
 #
 ##############################################################
 
 """
-Graphical Dice Roll 0.5.8 Beta for Windows 11
+Graphical Dice Roll 0.6.0 Beta for Windows 11
 --------------------------------------------------------
 
 This program makes various dice rolls and calculates their graphs if needed.
@@ -29,8 +29,8 @@ from matplotlib import font_manager
 import logging
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'Graphical Dice Roll 0.5.8 Beta'
-__version__ = '0.5.8b'
+__app__ = 'Graphical Dice Roll 0.6.0 Beta'
+__version__ = '0.6.0b'
 __py_version_req__ = (3,11,6)
 __expired_tag__ = False
 
@@ -420,7 +420,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 percent.append(0)
                 bar_height.append(0)
 
-            if self.dice_to_roll == 'D44' or self.dice_to_roll == 'D66' or self.dice_to_roll == 'D88' or self.dice_to_roll.find('S6') != -1:
+            if self.dice_to_roll == 'D44' or self.dice_to_roll == 'D66' or self.dice_to_roll == 'D88' or self.dice_to_roll.find('S6') != -1 \
+                or self.dice_to_roll.find('S10') != -1:
                 print('No die_range')
                 print('No mean_avg')
             else:
