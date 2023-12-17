@@ -71,6 +71,10 @@ Things To-Do
 
 **Known History**
 
+* v0.6.0b
+
+  Success dice (**S6** and **S10**) have been added.
+
 * v0.5.8b
 
   Increased accuracy to 500,000 iterations.
