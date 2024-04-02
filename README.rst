@@ -36,40 +36,16 @@ Some Things Required
   For the MS Zira and MS David voices (it will try to detect other SAPI voices installed).
 
 
-Don't Have Python?
-------------------
-
-The .EXE version can be run in Windows 11 or 10.
-
-
-.. |ss| raw:: html
-
-    <strike>
-
-.. |se| raw:: html
-
-    </strike>
-
 Things To-Do
-------------
+============
 
 | Add more dice roll types.
 | Instruction manual.
 | Cheat codes.
-|ss|
 
-| Switch over to Python 3.11 for faster calculations.
-| Voice manual input roll results.
-| Switch to using pydice 3.8 for die rolls.
-| Secret roll types added.
-| Add Advantage and Disadvantage roll types.
-| Make it talk.
-| Graph manually entered dice rolls as well.
-| Start on a To-Do.
 
-|se|
-
-**Known History**
+Known History
+=============
 
 * v0.6.0b
 
