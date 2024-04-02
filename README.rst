@@ -37,7 +37,7 @@ Some Things Required
 
 
 Things To-Do
-============
+------------
 
 | Add more dice roll types.
 | Instruction manual.
@@ -45,7 +45,7 @@ Things To-Do
 
 
 Known History
-=============
+-------------
 
 * v0.6.0b
 
